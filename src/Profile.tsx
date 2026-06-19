@@ -79,10 +79,10 @@ export const ProfilePage = () => {
               </div>
 
               {/* Info */}
-              <div className="flex-1 space-y-6 w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+              <div className="flex-1 w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+                  <div className="space-y-2.5">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
                       First Name
                     </label>
                     {isEditing ? (
@@ -90,17 +90,18 @@ export const ProfilePage = () => {
                         value={editFirstName}
                         onChange={(e) => setEditFirstName(e.target.value)}
                         icon={<User className="h-4 w-4 text-slate-400" />}
+                        className="h-12 bg-slate-50 dark:bg-slate-800 border-none shadow-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="First Name"
                       />
                     ) : (
-                      <div className="text-lg font-semibold text-slate-900 dark:text-white">
+                      <div className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                         {user.firstName}
                       </div>
                     )}
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <div className="space-y-2.5">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
                       Last Name
                     </label>
                     {isEditing ? (
@@ -108,43 +109,53 @@ export const ProfilePage = () => {
                         value={editLastName}
                         onChange={(e) => setEditLastName(e.target.value)}
                         icon={<User className="h-4 w-4 text-slate-400" />}
+                        className="h-12 bg-slate-50 dark:bg-slate-800 border-none shadow-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Last Name"
                       />
                     ) : (
-                      <div className="text-lg font-semibold text-slate-900 dark:text-white">
+                      <div className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                         {user.lastName || '-'}
                       </div>
                     )}
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Email
+                  <div className="space-y-2.5">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
+                      Email Address
                     </label>
-                    <div className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-slate-400" />
-                      {user.email}
+                    <div className="text-base font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2.5 overflow-hidden">
+                      <div className="h-8 w-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center shrink-0">
+                        <Mail className="h-4 w-4 text-indigo-500" />
+                      </div>
+                      <span className="truncate">{user.email}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Current Level
+                  <div className="space-y-2.5">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
+                      Knowledge Level
                     </label>
                     {isEditing ? (
-                      <select
-                        value={editLevel}
-                        onChange={(e) => setEditLevel(e.target.value as KnowledgeLevel)}
-                        className="w-full h-12 rounded-lg bg-slate-50 dark:bg-slate-800 border-none text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-600"
-                      >
-                        {LEVELS.map(level => (
-                          <option key={level} value={level}>{level}</option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={editLevel}
+                          onChange={(e) => setEditLevel(e.target.value as KnowledgeLevel)}
+                          className="w-full h-12 pl-4 pr-10 rounded-xl bg-slate-50 dark:bg-slate-800 border-none text-sm font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-600 appearance-none transition-all"
+                        >
+                          {LEVELS.map(level => (
+                            <option key={level} value={level}>{level}</option>
+                          ))}
+                        </select>
+                        <GraduationCap className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                      </div>
                     ) : (
-                      <div className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                        <GraduationCap className="h-4 w-4 text-slate-400" />
-                        Level {user.currentLevel}
+                      <div className="flex items-center gap-3">
+                         <div className="h-8 w-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0">
+                            <GraduationCap className="h-4 w-4 text-emerald-500" />
+                         </div>
+                         <div className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm font-black tracking-wider">
+                            {user.currentLevel}
+                         </div>
                       </div>
                     )}
                   </div>
