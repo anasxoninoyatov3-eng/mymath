@@ -28,7 +28,14 @@ export const useUserStore = create<UserState>()(
       allUsers: [],
       
       login: (userData) => {
-        const { firstName, lastName } = userData.name ? splitFullName(userData.name) : { firstName: 'User', lastName: '' };
+        let firstName = userData.firstName || 'User';
+        let lastName = userData.lastName || '';
+        
+        if (userData.name && !userData.firstName) {
+          const split = splitFullName(userData.name);
+          firstName = split.firstName;
+          lastName = split.lastName;
+        }
         
         const newUser: UserProfile = {
           id: userData.id || Date.now().toString(),
