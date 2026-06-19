@@ -39,12 +39,13 @@ export const RegisterPage = () => {
         
         login({
           id: userInfo.sub,
-          name: userInfo.name,
+          firstName: userInfo.given_name || userInfo.name || 'User',
+          lastName: userInfo.family_name || '',
           email: userInfo.email,
           picture: userInfo.picture,
           xp: 0,
           streak: 0,
-          level: 'A1'
+          currentLevel: 'A1'
         });
         navigate('/dashboard');
       } catch (err) {

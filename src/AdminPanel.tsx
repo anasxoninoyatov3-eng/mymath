@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/Card';
-import { Shield, Users, Activity, MoreVertical, Search, Filter, Trash2 } from 'lucide-react';
+import { Shield, Users, Activity, Search, Filter, Trash2 } from 'lucide-react';
 import { useUserStore } from '@/userStore';
 import { Navigate } from 'react-router-dom';
 import { useState } from 'react';

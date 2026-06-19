@@ -39,11 +39,12 @@ export const LoginPage = () => {
     await new Promise(r => setTimeout(r, 800));
     login({
       id: 'demo-user',
-      name: 'Abubakr Pioneer',
+      firstName: 'Abubakr',
+      lastName: 'Pioneer',
       email: data.email,
       xp: 2450,
       streak: 12,
-      level: 'B2'
+      currentLevel: 'B2'
     });
     navigate('/dashboard');
   };
@@ -58,12 +59,13 @@ export const LoginPage = () => {
         
         login({
           id: userInfo.sub,
-          name: userInfo.name,
+          firstName: userInfo.given_name || userInfo.name || 'User',
+          lastName: userInfo.family_name || '',
           email: userInfo.email,
           picture: userInfo.picture,
           xp: 0,
           streak: 0,
-          level: 'A1'
+          currentLevel: 'A1'
         });
         navigate('/dashboard');
       } catch (err) {

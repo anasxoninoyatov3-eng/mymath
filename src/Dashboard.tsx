@@ -35,7 +35,7 @@ export const DashboardPage = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <motion.div variants={item} className="space-y-2">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-            Welcome back, <span className="text-indigo-600">{user?.name || 'Learner'}</span>
+            Welcome back, <span className="text-indigo-600">{user?.firstName || 'Learner'}</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
             {user?.xp && user.xp > 0 ? "You're making great progress! Keep it up." : "Ready to start your first lesson?"}
@@ -72,7 +72,7 @@ export const DashboardPage = () => {
           <CardContent className="h-full p-10 flex flex-col justify-between text-white relative z-10">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-lg bg-white dark:bg-slate-900/20 px-3 py-1 text-[11px] font-bold backdrop-blur-md border border-white/10">
-                Current Level: {user?.level || 'B1'}
+                Current Level: {user?.currentLevel || 'B1'}
               </div>
               <h2 className="text-4xl font-bold max-w-sm leading-tight">Effective Business Writing</h2>
               <p className="text-white/80 font-medium max-w-xs text-base">Master the art of professional emails and reports.</p>
@@ -149,7 +149,7 @@ export const DashboardPage = () => {
            </div>
            <div>
               <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Rank</div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.level || 'Junior'}</div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.currentLevel || 'Junior'}</div>
            </div>
         </Card>
 

@@ -6,7 +6,7 @@ interface UserState {
   user: UserProfile | null;
   isAuthenticated: boolean;
   allUsers: UserProfile[];
-  login: (userData: Partial<UserProfile>) => void;
+  login: (userData: any) => void;
   logout: () => void;
   addXp: (amount: number) => void;
   updateTopicProgress: (topic: string, level: KnowledgeLevel, score: number, mastered: boolean) => void;
@@ -22,7 +22,7 @@ const splitFullName = (fullName: string) => {
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       user: null,
       isAuthenticated: false,
       allUsers: [],
@@ -38,7 +38,7 @@ export const useUserStore = create<UserState>()(
           picture: userData.picture,
           xp: userData.xp || 0,
           streak: userData.streak || 0,
-          currentLevel: (userData.currentLevel || 'A1') as KnowledgeLevel,
+          currentLevel: (userData.currentLevel || userData.level || 'A1') as KnowledgeLevel,
           topicProgress: userData.topicProgress || [],
           joinDate: new Date().toISOString()
         };
