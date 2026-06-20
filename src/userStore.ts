@@ -8,10 +8,12 @@ interface UserState {
   allUsers: (UserProfile & { password?: string })[];
   login: (email: string, password?: string) => boolean;
   registerUser: (userData: any) => boolean;
+  syncGoogleUser: (userInfo: any) => void;
   logout: () => void;
   addXp: (amount: number) => void;
   updateTopicProgress: (topic: string, level: KnowledgeLevel, score: number, mastered: boolean) => void;
   updateProfile: (updates: Partial<UserProfile>) => void;
+  clearAllUsers: () => void;
 }
 
 const splitFullName = (fullName: string) => {
@@ -27,11 +29,11 @@ export const useUserStore = create<UserState>()(
       user: null,
       isAuthenticated: false,
       allUsers: [],
-      
+
       login: (email, password) => {
         const state = get();
         const existingUser = state.allUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
-        
+
         if (existingUser && (!existingUser.password || existingUser.password === password)) {
           set({
             user: existingUser,
@@ -45,20 +47,20 @@ export const useUserStore = create<UserState>()(
       registerUser: (userData) => {
         const state = get();
         const existingUser = state.allUsers.find(u => u.email.toLowerCase() === userData.email.toLowerCase());
-        
+
         if (existingUser) {
           return false; // User already exists
         }
 
         let firstName = userData.firstName || 'User';
         let lastName = userData.lastName || '';
-        
+
         if (userData.name && !userData.firstName) {
           const split = splitFullName(userData.name);
           firstName = split.firstName;
           lastName = split.lastName;
         }
-        
+
         const newUser: UserProfile & { password?: string } = {
           id: userData.id || Date.now().toString(),
           firstName,
@@ -81,19 +83,67 @@ export const useUserStore = create<UserState>()(
 
         return true;
       },
-      
+
+      syncGoogleUser: (userInfo) => {
+        set((state) => {
+          const email = userInfo.email.toLowerCase();
+          const existingUserIndex = state.allUsers.findIndex(u => u.email.toLowerCase() === email);
+
+          const firstName = userInfo.given_name || userInfo.name || 'User';
+          const lastName = userInfo.family_name || '';
+          const picture = userInfo.picture;
+
+          let updatedAllUsers = [...state.allUsers];
+          let updatedUser;
+
+          if (existingUserIndex >= 0) {
+            // Update existing user
+            updatedUser = {
+              ...state.allUsers[existingUserIndex],
+              firstName,
+              lastName,
+              picture
+            };
+            updatedAllUsers[existingUserIndex] = updatedUser;
+          } else {
+            // Create new user
+            updatedUser = {
+              id: userInfo.sub || Date.now().toString(),
+              firstName,
+              lastName,
+              email: userInfo.email,
+              picture,
+              xp: 0,
+              streak: 0,
+              currentLevel: 'A1' as KnowledgeLevel,
+              topicProgress: [],
+              joinDate: new Date().toISOString()
+            };
+            updatedAllUsers.push(updatedUser);
+          }
+
+          return {
+            allUsers: updatedAllUsers,
+            user: updatedUser,
+            isAuthenticated: true
+          };
+        });
+      },
+
       logout: () => set({ user: null, isAuthenticated: false }),
-      
+
+      clearAllUsers: () => set({ allUsers: [], user: null, isAuthenticated: false }),
+
       addXp: (amount) => set((state) => ({
         user: state.user ? { ...state.user, xp: state.user.xp + amount } : null,
-        allUsers: state.user ? state.allUsers.map(u => 
+        allUsers: state.user ? state.allUsers.map(u =>
           u.id === state.user!.id ? { ...u, xp: u.xp + amount } : u
         ) : state.allUsers
       })),
-      
+
       updateTopicProgress: (topic, level, score, mastered) => set((state) => {
         if (!state.user) return state;
-        
+
         const newProgress: TopicProgress = {
           topic,
           level,
@@ -102,11 +152,11 @@ export const useUserStore = create<UserState>()(
           testScore: score,
           attempts: 1
         };
-        
+
         const existingProgressIndex = state.user.topicProgress.findIndex(
           p => p.topic === topic && p.level === level
         );
-        
+
         let updatedTopicProgress;
         if (existingProgressIndex >= 0) {
           updatedTopicProgress = [...state.user.topicProgress];
@@ -121,20 +171,20 @@ export const useUserStore = create<UserState>()(
         } else {
           updatedTopicProgress = [...state.user.topicProgress, newProgress];
         }
-        
+
         const updatedUser = { ...state.user, topicProgress: updatedTopicProgress };
-        
+
         return {
           user: updatedUser,
           allUsers: state.allUsers.map(u => u.id === state.user!.id ? { ...u, ...updatedUser } : u)
         };
       }),
-      
+
       updateProfile: (updates) => set((state) => {
         if (!state.user) return state;
-        
+
         const updatedUser = { ...state.user, ...updates };
-        
+
         return {
           user: updatedUser,
           allUsers: state.allUsers.map(u => u.id === state.user!.id ? { ...u, ...updatedUser } : u)

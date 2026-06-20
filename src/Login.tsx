@@ -62,31 +62,9 @@ export const LoginPage = () => {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
         }).then(res => res.json());
 
-        // For Google login, we always ensure the name and picture are fresh
-        const state = useUserStore.getState();
-        const existingUser = state.allUsers.find(u => u.email.toLowerCase() === userInfo.email.toLowerCase());
-
-        if (existingUser) {
-          // Update existing user with Google info to overwrite any legacy "Abubakr Pioneer" data
-          state.login(userInfo.email); // Set as current user first
-          state.updateProfile({
-            firstName: userInfo.given_name || userInfo.name || 'User',
-            lastName: userInfo.family_name || '',
-            picture: userInfo.picture
-          });
-        } else {
-          // Register new user
-          state.registerUser({
-            id: userInfo.sub,
-            firstName: userInfo.given_name || userInfo.name || 'User',
-            lastName: userInfo.family_name || '',
-            email: userInfo.email,
-            picture: userInfo.picture,
-            xp: 0,
-            streak: 0,
-            currentLevel: 'A1'
-          });
-        }
+        // For Google login, we use the atomic syncGoogleUser method
+        // This ensures name and picture are always fresh and prevents race conditions
+        useUserStore.getState().syncGoogleUser(userInfo);
         navigate('/dashboard');
       } catch (err) {
         console.error("Auth Exception", err);

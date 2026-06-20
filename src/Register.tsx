@@ -59,28 +59,7 @@ export const RegisterPage = () => {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
         }).then(res => res.json());
 
-        const state = useUserStore.getState();
-        const existingUser = state.allUsers.find(u => u.email.toLowerCase() === userInfo.email.toLowerCase());
-
-        if (existingUser) {
-          state.login(userInfo.email);
-          state.updateProfile({
-            firstName: userInfo.given_name || userInfo.name || 'User',
-            lastName: userInfo.family_name || '',
-            picture: userInfo.picture
-          });
-        } else {
-          state.registerUser({
-            id: userInfo.sub,
-            firstName: userInfo.given_name || userInfo.name || 'User',
-            lastName: userInfo.family_name || '',
-            email: userInfo.email,
-            picture: userInfo.picture,
-            xp: 0,
-            streak: 0,
-            currentLevel: 'A1'
-          });
-        }
+        useUserStore.getState().syncGoogleUser(userInfo);
         navigate('/dashboard');
       } catch (err) {
         console.error("Auth Exception", err);

@@ -94,6 +94,18 @@ export const AdminPanel = () => {
                 className="w-full h-10 pl-10 pr-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-none text-sm focus:ring-2 focus:ring-indigo-600 font-medium transition-all"
               />
             </div>
+            <button 
+              onClick={() => {
+                if(confirm("Haqiqatan ham barcha foydalanuvchi ma'lumotlarini o'chirib tashlamoqchimisiz? (Bu 'Abubakr Pioneer' kabi eski ma'lumotlarni tozalaydi)")) {
+                   useUserStore.getState().clearAllUsers();
+                }
+              }}
+              title="Clear All Legacy Data"
+              className="h-10 px-4 rounded-lg bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-600 dark:text-rose-400 hover:bg-rose-100 transition-colors text-xs font-bold gap-2"
+            >
+              <Trash2 className="h-4 w-4" />
+              Reset All
+            </button>
             <button className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors">
               <Filter className="h-4 w-4" />
             </button>
