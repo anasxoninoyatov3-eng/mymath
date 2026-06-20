@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,33 +20,38 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const GoogleIcon = () => (
   <svg className="h-5 w-5 mr-3" viewBox="0 0 24 24">
-    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
   </svg>
 );
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const login = useUserStore(state => state.login);
+  const { login, isAuthenticated } = useUserStore();
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
+
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema)
   });
 
   const onSubmit = async (data: LoginFormValues) => {
+    setLoginError(null);
     await new Promise(r => setTimeout(r, 800));
-    login({
-      id: 'demo-user',
-      firstName: 'Abubakr',
-      lastName: 'Pioneer',
-      email: data.email,
-      xp: 2450,
-      streak: 12,
-      currentLevel: 'B2'
-    });
-    navigate('/dashboard');
+    const success = login(data.email, data.password);
+    if (success) {
+      navigate('/dashboard');
+    } else {
+      setLoginError('Invalid email or password');
+    }
   };
 
   const onGoogleLogin = useGoogleLogin({
@@ -56,17 +61,32 @@ export const LoginPage = () => {
         const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
         }).then(res => res.json());
-        
-        login({
-          id: userInfo.sub,
-          firstName: userInfo.given_name || userInfo.name || 'User',
-          lastName: userInfo.family_name || '',
-          email: userInfo.email,
-          picture: userInfo.picture,
-          xp: 0,
-          streak: 0,
-          currentLevel: 'A1'
-        });
+
+        // For Google login, we always ensure the name and picture are fresh
+        const state = useUserStore.getState();
+        const existingUser = state.allUsers.find(u => u.email.toLowerCase() === userInfo.email.toLowerCase());
+
+        if (existingUser) {
+          // Update existing user with Google info to overwrite any legacy "Abubakr Pioneer" data
+          state.login(userInfo.email); // Set as current user first
+          state.updateProfile({
+            firstName: userInfo.given_name || userInfo.name || 'User',
+            lastName: userInfo.family_name || '',
+            picture: userInfo.picture
+          });
+        } else {
+          // Register new user
+          state.registerUser({
+            id: userInfo.sub,
+            firstName: userInfo.given_name || userInfo.name || 'User',
+            lastName: userInfo.family_name || '',
+            email: userInfo.email,
+            picture: userInfo.picture,
+            xp: 0,
+            streak: 0,
+            currentLevel: 'A1'
+          });
+        }
         navigate('/dashboard');
       } catch (err) {
         console.error("Auth Exception", err);
@@ -77,15 +97,15 @@ export const LoginPage = () => {
   });
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="w-full max-w-[440px] px-6"
     >
       <div className="text-center mb-12 space-y-4">
-         <div className="h-12 w-12 rounded-lg bg-indigo-600 mx-auto flex items-center justify-center text-white font-bold text-xl">E</div>
-         <h1 className="text-4xl font-bold text-slate-900 dark:text-white leading-tight">Welcome Back</h1>
-         <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-tight">Continue your learning journey with E.</p>
+        <div className="h-12 w-12 rounded-lg bg-indigo-600 mx-auto flex items-center justify-center text-white font-bold text-xl">E</div>
+        <h1 className="text-4xl font-bold text-slate-900 dark:text-white leading-tight">Welcome Back</h1>
+        <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-tight">Continue your learning journey with E.</p>
       </div>
 
       <Card className="border border-slate-100 shadow-lg rounded-2xl overflow-hidden p-2 bg-white dark:bg-slate-900">
@@ -97,10 +117,10 @@ export const LoginPage = () => {
             disabled={isGoogleLoading}
             className="w-full h-12 rounded-lg border border-slate-100 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:bg-slate-800 shadow-sm transition-all font-bold text-sm text-slate-600 dark:text-slate-300 group"
           >
-            {isGoogleLoading ? <Loader2 className="h-5 w-5 animate-spin"/> : <GoogleIcon />}
+            {isGoogleLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <GoogleIcon />}
             {isGoogleLoading ? 'Signing in...' : 'Continue with Google'}
           </Button>
-          
+
           <div className="relative">
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 border-t border-slate-100" />
             <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest">
@@ -108,29 +128,35 @@ export const LoginPage = () => {
             </div>
           </div>
 
+          {loginError && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm font-medium">
+              {loginError}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
-              <Input 
-                icon={<Mail className="h-4 w-4 text-slate-300" />} 
-                placeholder="Email Address" 
+              <Input
+                icon={<Mail className="h-4 w-4 text-slate-300" />}
+                placeholder="Email Address"
                 type="email"
                 {...register('email')}
                 error={errors.email?.message}
                 className="bg-slate-50 dark:bg-slate-800 border-none h-12 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-300 font-medium"
               />
-              <Input 
-                icon={<Lock className="h-4 w-4 text-slate-300" />} 
-                placeholder="Password" 
+              <Input
+                icon={<Lock className="h-4 w-4 text-slate-300" />}
+                placeholder="Password"
                 type="password"
                 {...register('password')}
                 error={errors.password?.message}
                 className="bg-slate-50 dark:bg-slate-800 border-none h-12 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-300 font-medium"
               />
             </div>
-            
-            <Button 
-              className="w-full h-16 rounded-lg text-base font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-50 group" 
-              type="submit" 
+
+            <Button
+              className="w-full h-16 rounded-lg text-base font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-50 group"
+              type="submit"
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Signing in...' : (
@@ -142,12 +168,12 @@ export const LoginPage = () => {
           </form>
         </CardContent>
       </Card>
-      
+
       <div className="mt-10 text-center text-sm font-medium text-slate-500 dark:text-slate-400">
-         Don't have an account?{' '}
-         <Link to="/register" className="text-indigo-600 font-bold hover:text-indigo-700 transition-colors">
-            Sign Up
-         </Link>
+        Don't have an account?{' '}
+        <Link to="/register" className="text-indigo-600 font-bold hover:text-indigo-700 transition-colors">
+          Sign Up
+        </Link>
       </div>
     </motion.div>
   );

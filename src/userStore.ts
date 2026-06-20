@@ -5,8 +5,9 @@ import { UserProfile, TopicProgress, KnowledgeLevel } from './types';
 interface UserState {
   user: UserProfile | null;
   isAuthenticated: boolean;
-  allUsers: UserProfile[];
-  login: (userData: any) => void;
+  allUsers: (UserProfile & { password?: string })[];
+  login: (email: string, password?: string) => boolean;
+  registerUser: (userData: any) => boolean;
   logout: () => void;
   addXp: (amount: number) => void;
   updateTopicProgress: (topic: string, level: KnowledgeLevel, score: number, mastered: boolean) => void;
@@ -22,12 +23,33 @@ const splitFullName = (fullName: string) => {
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set, _get) => ({
+    (set, get) => ({
       user: null,
       isAuthenticated: false,
       allUsers: [],
       
-      login: (userData) => {
+      login: (email, password) => {
+        const state = get();
+        const existingUser = state.allUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+        
+        if (existingUser && (!existingUser.password || existingUser.password === password)) {
+          set({
+            user: existingUser,
+            isAuthenticated: true
+          });
+          return true;
+        }
+        return false;
+      },
+
+      registerUser: (userData) => {
+        const state = get();
+        const existingUser = state.allUsers.find(u => u.email.toLowerCase() === userData.email.toLowerCase());
+        
+        if (existingUser) {
+          return false; // User already exists
+        }
+
         let firstName = userData.firstName || 'User';
         let lastName = userData.lastName || '';
         
@@ -37,11 +59,12 @@ export const useUserStore = create<UserState>()(
           lastName = split.lastName;
         }
         
-        const newUser: UserProfile = {
+        const newUser: UserProfile & { password?: string } = {
           id: userData.id || Date.now().toString(),
           firstName,
           lastName,
-          email: userData.email || '',
+          email: userData.email,
+          password: userData.password,
           picture: userData.picture,
           xp: userData.xp || 0,
           streak: userData.streak || 0,
@@ -50,24 +73,13 @@ export const useUserStore = create<UserState>()(
           joinDate: new Date().toISOString()
         };
 
-        set((state) => {
-          // Check if user already exists in allUsers
-          const existingUserIndex = state.allUsers.findIndex(u => u.email === newUser.email);
-          let updatedAllUsers;
-          
-          if (existingUserIndex >= 0) {
-            updatedAllUsers = [...state.allUsers];
-            updatedAllUsers[existingUserIndex] = { ...updatedAllUsers[existingUserIndex], ...newUser };
-          } else {
-            updatedAllUsers = [...state.allUsers, newUser];
-          }
-          
-          return {
-            user: newUser,
-            isAuthenticated: true,
-            allUsers: updatedAllUsers
-          };
-        });
+        set((state) => ({
+          allUsers: [...state.allUsers, newUser],
+          user: newUser,
+          isAuthenticated: true
+        }));
+
+        return true;
       },
       
       logout: () => set({ user: null, isAuthenticated: false }),
@@ -114,7 +126,7 @@ export const useUserStore = create<UserState>()(
         
         return {
           user: updatedUser,
-          allUsers: state.allUsers.map(u => u.id === state.user!.id ? updatedUser : u)
+          allUsers: state.allUsers.map(u => u.id === state.user!.id ? { ...u, ...updatedUser } : u)
         };
       }),
       
@@ -125,7 +137,7 @@ export const useUserStore = create<UserState>()(
         
         return {
           user: updatedUser,
-          allUsers: state.allUsers.map(u => u.id === state.user!.id ? updatedUser : u)
+          allUsers: state.allUsers.map(u => u.id === state.user!.id ? { ...u, ...updatedUser } : u)
         };
       })
     }),

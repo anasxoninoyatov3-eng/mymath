@@ -1,13 +1,23 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/Button';
 import { Card, CardContent } from '@/Card';
 import { motion } from 'framer-motion';
+import { useUserStore } from '@/userStore';
 import { 
   Globe, 
   ChevronRight, CheckCircle2, Sparkles, BookOpen, TrendingUp
 } from 'lucide-react';
 
 export const HomePage = () => {
+  const { isAuthenticated } = useUserStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -23,25 +33,25 @@ export const HomePage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 selection:bg-indigo-600 selection:text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-8 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 md:px-8 py-4 md:py-5 flex items-center justify-between transition-all">
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="h-7 w-7 md:h-8 md:w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
             E
           </div>
-          <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">ENK English</span>
+          <span className="text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight">ENK English</span>
         </div>
         
-        <div className="hidden md:flex items-center gap-10">
-          <a href="#features" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">Features</a>
-          <a href="#about" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">About</a>
-          <a href="#community" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">Community</a>
+        <div className="hidden lg:flex items-center gap-10">
+          <a href="#features" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">Features</a>
+          <a href="#about" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">About</a>
+          <a href="#community" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">Community</a>
         </div>
 
-        <div className="flex items-center gap-6">
-          <Button asChild variant="ghost" className="font-semibold text-slate-600 dark:text-slate-300">
+        <div className="flex items-center gap-2 md:gap-6">
+          <Button asChild variant="ghost" className="px-3 md:px-4 font-semibold text-sm text-slate-600 dark:text-slate-300">
             <Link to="/login">Sign In</Link>
           </Button>
-          <Button asChild className="rounded-lg h-10 px-6 font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm">
+          <Button asChild className="rounded-lg h-9 md:h-10 px-4 md:px-6 text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm">
             <Link to="/register">Get Started</Link>
           </Button>
         </div>
@@ -49,46 +59,46 @@ export const HomePage = () => {
 
       <main>
         {/* Hero Section */}
-        <section className="relative pt-64 pb-48 px-6 bg-slate-50 dark:bg-slate-800/50">
+        <section className="relative pt-32 md:pt-64 pb-20 md:pb-48 px-4 md:px-6 bg-slate-50 dark:bg-slate-800/50">
           <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
             <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="space-y-8"
+              className="space-y-6 md:space-y-8"
             >
-              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-indigo-600 shadow-sm">
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] md:text-xs font-bold text-indigo-600 shadow-sm">
                 Next-Gen English Learning
               </motion.div>
 
-              <motion.h1 variants={itemVariants} className="text-[clamp(2.5rem,8vw,5rem)] font-bold text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight">
+              <motion.h1 variants={itemVariants} className="text-[clamp(2rem,10vw,5rem)] font-bold text-slate-900 dark:text-white max-w-4xl mx-auto leading-[1.1] tracking-tight">
                 Unlock your Global <br/>
                 <span className="text-indigo-600">Potential.</span>
               </motion.h1>
 
-              <motion.p variants={itemVariants} className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-3xl mx-auto">
+              <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-3xl mx-auto px-4">
                 Discover a smarter way to master English. Designed for students and professionals 
                 who want to achieve fluency with confidence and precision.
               </motion.p>
               
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-                  <Button size="lg" className="h-14 px-10 rounded-lg text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg group">
-                    <Link to="/register" className="flex items-center gap-2">
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 md:pt-8 w-full max-w-md mx-auto">
+                  <Button size="lg" className="h-14 px-8 md:px-10 rounded-lg text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg group w-full sm:w-auto">
+                    <Link to="/register" className="flex items-center justify-center gap-2">
                        Start Now <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="h-14 px-10 rounded-lg text-lg font-semibold border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:bg-slate-800">
+                  <Button variant="outline" size="lg" className="h-14 px-8 md:px-10 rounded-lg text-lg font-semibold border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:bg-slate-800 w-full sm:w-auto">
                     <Link to="/courses">View Courses</Link>
                   </Button>
               </motion.div>
 
-              <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 pt-12">
+              <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center justify-center gap-4 pt-8 md:pt-12">
                   <div className="flex -space-x-2">
                      {[1,2,3,4].map(i => (
-                       <img key={i} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i * 123}`} className="h-10 w-10 rounded-full border-2 border-white bg-slate-100" />
+                       <img key={i} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i * 123}`} className="h-8 w-8 md:h-10 md:w-10 rounded-full border-2 border-white bg-slate-100" />
                      ))}
                   </div>
-                  <p className="text-sm font-bold text-slate-400">Master English with our global community</p>
+                  <p className="text-xs md:text-sm font-bold text-slate-400">Master English with our global community</p>
               </motion.div>
             </motion.div>
           </div>
