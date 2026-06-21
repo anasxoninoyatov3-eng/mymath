@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Bot, Volume2, VolumeX } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { cn, speakText, VITE_GEMINI_API_KEY } from '@/utils';
+import { cn, speakText, VITE_GROQ_API_KEY_CHAT } from '@/utils';
 
 interface Message {
   id: string;
@@ -60,51 +60,49 @@ export const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      if (!VITE_GEMINI_API_KEY) throw new Error('API kaliti topilmadi.');
+      if (!VITE_GROQ_API_KEY_CHAT) throw new Error('API kaliti topilmadi.');
 
-      const systemInstruction = `You are Josh, a helpful, friendly and enthusiastic AI English conversation partner and teacher.
+      const systemInstruction = `You are Josh, a helpful, friendly and enthusiastic AI assistant and teacher.
 
-CRITICAL LANGUAGE RULES:
-- If the user writes in Uzbek (uses words like "nima", "qanday", "salom", "men", "bu", "kerak", "qilib", "tushuntir"), you MUST reply in Uzbek.
-- If the user writes in Russian (uses words like "как", "что", "привет", "мне", "это", "нужно", "объясни"), you MUST reply in Russian.
-- If the user writes in English, reply in English.
-- ALWAYS include English examples when teaching, regardless of the support language.
+LANGUAGE RULES:
+- You can communicate in ANY language requested by the user (Uzbek, Russian, English, Spanish, etc.).
+- Always reply in the same language the user uses, or the language they ask you to use.
+- If the user asks for an explanation of a topic, provide it in their language.
+
+CONCISENESS RULES:
+- Keep your explanations very brief and concise. 
+- Use bullet points or short sentences. 
+- Only give the most important information.
+- Aim for 1-2 short paragraphs or a few bullet points.
 
 YOUR PERSONALITY:
-- Be warm, encouraging, and patient
-- Use emojis occasionally to be friendly 😊
-- When the user makes a mistake in English, gently correct them with the right form
-- Give practical examples that are easy to remember
-- Keep answers concise but helpful (2-4 paragraphs max)
-
-TEACHING STYLE:
-- Explain grammar rules simply with clear examples
-- Provide translations when appropriate
-- Use analogies when possible
-- Always encourage the student`;
+- Be warm, encouraging, and patient.
+- Use emojis occasionally to be friendly 😊.
+- If teaching English, gently correct mistakes and provide simple examples.
+- Always encourage the student.`;
 
       const conversationHistory = messages.map(m => ({
-        role: m.role === 'user' ? 'user' : 'model',
-        parts: [{ text: m.content }]
+        role: m.role === 'user' ? 'user' : 'assistant',
+        content: m.content
       }));
 
       const payload = {
-        system_instruction: { parts: [{ text: systemInstruction }] },
-        contents: [
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: systemInstruction },
           ...conversationHistory,
-          { role: 'user', parts: [{ text: userText }] }
+          { role: 'user', content: userText }
         ],
-        generationConfig: { 
-          maxOutputTokens: 1000,
-          temperature: 0.8
-        }
+        temperature: 0.8,
+        max_tokens: 1000
       };
 
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${VITE_GEMINI_API_KEY}`;
-      
-      const response = await fetch(url, {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${VITE_GROQ_API_KEY_CHAT}`
+        },
         body: JSON.stringify(payload)
       });
 
@@ -115,7 +113,7 @@ TEACHING STYLE:
       }
 
       const data = await response.json();
-      const output = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Javob kelmadi. Qaytadan urinib ko\'ring.';
+      const output = data?.choices?.[0]?.message?.content || 'Javob kelmadi. Qaytadan urinib ko\'ring.';
 
       const newMsgId = (Date.now() + 1).toString();
       setMessages(prev => [...prev, {

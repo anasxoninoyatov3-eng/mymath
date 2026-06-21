@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export const VITE_GEMINI_API_KEY = (import.meta as any).env.VITE_GEMINI_API_KEY || '';
+export const VITE_GROQ_API_KEY_CHAT = (import.meta as any).env.VITE_GROQ_API_KEY_CHAT || '';
+export const VITE_GROQ_API_KEY_LESSON = (import.meta as any).env.VITE_GROQ_API_KEY_LESSON || '';
 export const ELEVENLABS_API_KEY = (import.meta as any).env.VITE_ELEVENLABS_API_KEY || '';
 // Using a multilingual-friendly voice for better Uzbek pronunciation
 export const ELEVENLABS_VOICE_ID = 'EXAVITQu4v4VsRxzFf8'; // Sarah - good for multilingual content
