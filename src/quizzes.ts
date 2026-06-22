@@ -8,115 +8,75 @@ export const PREMADE_QUIZZES: Record<string, {
     explanation: string;
   }[];
 }> = {
-  'The Verb "to be" (am, is, are)': {
-    topic: 'The Verb "to be" (am, is, are)',
-    level: 'A1',
+  'Natural sonlar': {
+    topic: 'Natural sonlar',
+    level: '5-sinf',
     questions: [
       {
-        question: 'Which form of "to be" is correct? "I ___ a student."',
-        options: ['am', 'is', 'are'],
-        correctIndex: 0,
-        explanation: 'We use "am" only with the pronoun "I".'
-      },
-      {
-        question: 'Complete: "She ___ a doctor."',
-        options: ['am', 'is', 'are'],
+        question: 'Eng kichik natural son qaysi?',
+        options: ['0', '1', '2', 'Yo\'q'],
         correctIndex: 1,
-        explanation: 'We use "is" with he, she, and it.'
+        explanation: 'Sanoqda ishlatiladigan eng kichik son 1 hisoblanadi.'
       },
       {
-        question: 'Which is correct? "We ___ from Uzbekistan."',
-        options: ['am', 'is', 'are'],
+        question: '0 soni natural sonmi?',
+        options: ['Ha', 'Yo\'q', 'Faqat ba\'zida'],
+        correctIndex: 1,
+        explanation: '0 soni narsalarni sanashda ishlatilmagani uchun natural son emas.'
+      },
+      {
+        question: '99 va 101 orasida qaysi natural son bor?',
+        options: ['98', '100', '102', '100.5'],
+        correctIndex: 1,
+        explanation: '99 dan keyingi natural son 100.'
+      },
+      {
+        question: 'Qaysi qator faqat natural sonlardan iborat?',
+        options: ['1, 2, 3, 4', '0, 1, 2, 3', '-1, 0, 1, 2'],
+        correctIndex: 0,
+        explanation: 'Natural sonlar 1 dan boshlanadi.'
+      },
+      {
+        question: 'Eng katta natural son qaysi?',
+        options: ['1 000 000', '1 000 000 000', 'Mavjud emas'],
         correctIndex: 2,
-        explanation: 'We use "are" with we, you, and they.'
-      },
-      {
-        question: 'How to make a question correctly?',
-        options: ['You are a teacher?', 'Are you a teacher?', 'Is you a teacher?'],
-        correctIndex: 1,
-        explanation: 'In questions, we invert the subject and verb: "Are you...?"'
-      },
-      {
-        question: 'What is the negative form? "I ___ tired."',
-        options: ['am not', 'isn\'t', 'aren\'t'],
-        correctIndex: 0,
-        explanation: 'The negative of "I am" is "I am not".'
+        explanation: 'Natural sonlar cheksiz davom etadi.'
       }
     ]
   },
-  'Past Simple Tense': {
-    topic: 'Past Simple Tense',
-    level: 'A2',
+  'Pifagor teoremasi': {
+    topic: 'Pifagor teoremasi',
+    level: '7-sinf',
     questions: [
       {
-        question: 'What is the Past Simple of "play"?',
-        options: ['plaied', 'played', 'playd'],
+        question: 'Pifagor teoremasi qaysi uchburchak uchun amal qiladi?',
+        options: ['Teng yonli', 'To\'g\'ri burchakli', 'O\'tmas burchakli'],
         correctIndex: 1,
-        explanation: 'Regular verbs add "-ed" to form the Past Simple.'
+        explanation: 'Pifagor teoremasi faqat to\'g\'ri burchakli uchburchaklar uchun.'
       },
       {
-        question: 'What is the Past Simple of "go"?',
-        options: ['goed', 'went', 'gone'],
-        correctIndex: 1,
-        explanation: '"Go" is an irregular verb. Its Past Simple form is "went".'
-      },
-      {
-        question: 'Complete: "I ___ football yesterday."',
-        options: ['play', 'played', 'playing'],
-        correctIndex: 1,
-        explanation: 'We use Past Simple for actions that happened at a specific time in the past (yesterday).'
-      },
-      {
-        question: 'How to make a negative sentence?',
-        options: ['I not liked it.', 'I didn\'t liked it.', 'I didn\'t like it.'],
+        question: 'Gipotenuza nima?',
+        options: ['Eng kichik tomon', 'O\'tkir burchak qarshisidagi tomon', 'Eng uzun tomon'],
         correctIndex: 2,
-        explanation: 'Negative sentences in Past Simple: subject + didn\'t + base verb.'
+        explanation: 'Gipotenuza to\'g\'ri burchak qarshisidagi eng uzun tomon.'
       },
       {
-        question: 'Which is the correct question?',
-        options: ['Did you watched TV?', 'Did you watch TV?', 'Do you watched TV?'],
-        correctIndex: 1,
-        explanation: 'Questions in Past Simple: Did + subject + base verb?'
-      }
-    ]
-  },
-  'Present Perfect vs Past Simple': {
-    topic: 'Present Perfect vs Past Simple',
-    level: 'B1',
-    questions: [
-      {
-        question: 'Complete: "I ___ to Paris three times."',
-        options: ['went', 'have been', 'have gone'],
-        correctIndex: 1,
-        explanation: 'Present Perfect is used for past experiences without a specific time (three times in my life).'
-      },
-      {
-        question: 'Complete: "I ___ to Paris last year."',
-        options: ['went', 'have been', 'have gone'],
+        question: 'Katetlar 3 va 4 bo\'lsa, gipotenuza nechaga teng?',
+        options: ['5', '7', '25'],
         correctIndex: 0,
-        explanation: 'Past Simple is used when there is a specific time in the past (last year).'
+        explanation: '$3^2 + 4^2 = 9 + 16 = 25$, ildiz olsak 5 chiqadi.'
       },
       {
-        question: 'Complete: "___ you ever eaten sushi?"',
-        options: ['Did', 'Have', 'Has'],
-        correctIndex: 1,
-        explanation: 'We use Present Perfect with "ever" to ask about past experiences.'
+        question: 'Agar $a=6, b=8$ bo\'lsa, $c$ ning qiymatini toping.',
+        options: ['10', '14', '100'],
+        correctIndex: 0,
+        explanation: '$6^2 + 8^2 = 36 + 64 = 100$, ildiz olsak 10.'
       },
       {
-        question: 'Complete: "Ouch! I ___ my finger!"',
-        options: ['cut', 'have cut', 'cutted'],
+        question: 'Faqat katetlar kvdaratlari yig\'indisi nimaga teng?',
+        options: ['Gipotenuza', 'Gipotenuza kvadrati', 'Gipotenuza yarmi'],
         correctIndex: 1,
-        explanation: 'Present Perfect is used when a past action has a result in the present (my finger hurts now).'
-      },
-      {
-        question: 'When do we use Past Simple?',
-        options: [
-          'For actions with a result in the present', 
-          'For actions at a specific time in the past', 
-          'For actions that continue to the present'
-        ],
-        correctIndex: 1,
-        explanation: 'Past Simple focuses on when something happened (specific time in the past).'
+        explanation: '$a^2 + b^2 = c^2$, ya\'ni gipotenuza kvadrati.'
       }
     ]
   }

@@ -23,117 +23,98 @@ interface CurriculumItem {
 
 const curriculum: CurriculumItem[] = [
   {
-    level: 'A1',
-    name: 'Beginner',
-    description: 'Start from zero. Master the very first building blocks of English with confidence.',
+    level: '1-4 sinf',
+    name: 'Boshlang\'ich matematika',
+    description: 'Sonlar, amallar va asosiy geometriya dunyosiga birinchi qadamlar.',
     gradient: 'from-sky-400 via-blue-500 to-blue-600',
     bgLight: 'bg-sky-50',
     textAccent: 'text-sky-600',
     borderAccent: 'border-sky-200',
     icon: Star,
-    duration: '4 weeks',
+    duration: 'Har kuni',
     difficulty: 1,
     topics: [
-      'The Verb "to be" (am, is, are)',
-      'Present Simple Tense',
-      'Personal & Possessive Pronouns',
-      'Countable & Uncountable Nouns',
-      'Basic Prepositions (in, on, at)',
+      'Natural sonlar va ular ustida amallar',
+      'Ko\'paytirish jadvali sirlari',
+      'Oddiy geometrik shakllar',
+      'Vaqt va o\'lchov birliklari',
+      'Mantiqiy masalalar',
     ],
   },
   {
-    level: 'A2',
-    name: 'Elementary',
-    description: 'Build your foundation for everyday conversations and common situations.',
+    level: '5-6 sinf',
+    name: 'O\'rta maktab asosi',
+    description: 'Kasrlar, foizlar va algebraik ifodalar bilan tanishish.',
     gradient: 'from-emerald-400 via-green-500 to-teal-600',
     bgLight: 'bg-emerald-50',
     textAccent: 'text-emerald-600',
     borderAccent: 'border-emerald-200',
     icon: Trophy,
-    duration: '5 weeks',
+    duration: 'Har kuni',
     difficulty: 2,
     topics: [
-      'Past Simple Tense',
-      'Present Continuous',
-      'Comparatives & Superlatives',
-      'Future with "going to"',
-      'Basic Modal Verbs (can, must, should)',
+      'Oddiy va o\'nli kasrlar',
+      'Proportsiya va foizlar',
+      'Musbat va manfiy sonlar',
+      'Birinchi darajali tenglamalar',
+      'Kombinatorika elementlari',
     ],
   },
   {
-    level: 'B1',
-    name: 'Intermediate',
-    description: 'Start expressing more complex thoughts and communicate more naturally.',
+    level: '7-9 sinf',
+    name: 'Algebra va Geometriya',
+    description: 'Funksiyalar, teoremalar va fazoviy tasavvurni rivojlantirish.',
     gradient: 'from-amber-400 via-orange-500 to-rose-500',
     bgLight: 'bg-amber-50',
     textAccent: 'text-amber-600',
     borderAccent: 'border-amber-200',
     icon: Zap,
-    duration: '6 weeks',
+    duration: 'Har kuni',
     difficulty: 3,
     topics: [
-      'Present Perfect vs Past Simple',
-      'Past Continuous',
-      'First & Second Conditionals',
-      'Passive Voice (Present & Past)',
-      '"Used to" and Past Habits',
+      'Pifagor teoremasi va tatbiqlari',
+      'Kvadrat tenglamalar',
+      'Sinuclar va kosinuslar (Trigonometriya)',
+      'Aylana va ko\'pburchaklar',
+      'Funksiyalar va grafiklar',
     ],
   },
   {
-    level: 'B2',
-    name: 'Upper Intermediate',
-    description: 'Achieve fluency and understand native speakers in real situations.',
+    level: '10-11 sinf',
+    name: 'Oliy matematikaga tayyorgarlik',
+    description: 'Hosilalar, integrallar va murakkab trigonometrik funksiyalar.',
     gradient: 'from-rose-400 via-pink-500 to-fuchsia-600',
     bgLight: 'bg-rose-50',
     textAccent: 'text-rose-600',
     borderAccent: 'border-rose-200',
     icon: BookOpen,
-    duration: '7 weeks',
+    duration: 'Har kuni',
     difficulty: 4,
     topics: [
-      'Present Perfect Continuous',
-      'Third Conditional',
-      'Reported Speech',
-      'Future Perfect & Continuous',
-      'Modal Verbs for Deduction',
+      'Hosila va uning tatbiqlari',
+      'Integrallash asoslari',
+      'Murakkab trigonometrik tenglamalar',
+      'Stereometriya (Fazoviy geometriya)',
+      'Ehtimollar nazariyasi',
     ],
   },
   {
-    level: 'C1',
-    name: 'Advanced',
-    description: 'Master complex grammar structures and academic/professional vocabulary.',
+    level: 'DTM/Olimpiada',
+    name: 'Professional daraja',
+    description: 'Kirish imtihonlari va olimpiada masalalarini yechish strategiyalari.',
     gradient: 'from-violet-500 via-purple-600 to-indigo-700',
     bgLight: 'bg-violet-50',
     textAccent: 'text-violet-600',
     borderAccent: 'border-violet-200',
     icon: Shield,
-    duration: '8 weeks',
+    duration: 'Har kuni',
     difficulty: 5,
     topics: [
-      'Mixed Conditionals',
-      'Inversion for Emphasis',
-      'Advanced Passive Structures',
-      'Gerunds vs Infinitives',
-      'Cleft Sentences',
-    ],
-  },
-  {
-    level: 'C2',
-    name: 'Proficiency',
-    description: 'Reach native-level mastery with extreme nuance, style, and precision.',
-    gradient: 'from-slate-600 via-slate-700 to-slate-900',
-    bgLight: 'bg-slate-50 dark:bg-slate-800',
-    textAccent: 'text-slate-600 dark:text-slate-300',
-    borderAccent: 'border-slate-300',
-    icon: Crown,
-    duration: '10 weeks',
-    difficulty: 6,
-    topics: [
-      'The Subjunctive Mood',
-      'Narrative Tenses (Advanced)',
-      'Advanced Idioms & Expressions',
-      'Complex Clauses & Participles',
-      'Discourse Markers',
+      'Murakkab parametrli tenglamalar',
+      'Logarifmik va ko\'rsatkichli ifodalar',
+      'Planimetriya sirlari',
+      'Sektor va segment yuzalari',
+      'Matematik induksiya usuli',
     ],
   },
 ];
@@ -160,7 +141,7 @@ const cardVariants: any = {
 };
 
 export const CoursesPage = () => {
-  const [activeLevel, setActiveLevel] = useState<string>('B1');
+  const [activeLevel, setActiveLevel] = useState<string>('7-9 sinf');
   const navigate = useNavigate();
 
   const active = curriculum.find((c) => c.level === activeLevel)!;
@@ -187,21 +168,21 @@ export const CoursesPage = () => {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-1.5 text-xs font-bold text-indigo-600 uppercase tracking-widest">
                 <Sparkles className="h-3.5 w-3.5" />
-                Full Curriculum
+                Dastur
               </div>
               <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-none tracking-tight">
-                Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">Courses</span>
+                Sizning <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">Kurslaringiz</span>
               </h1>
               <p className="text-slate-500 dark:text-slate-400 text-base font-medium max-w-xl leading-relaxed">
-                Six levels from A1 to C2. Pick a level, choose a topic, and let the AI guide you through a personalized lesson.
+                Maktab darsligidan olimpiada darajasigacha. O'zingizga mos sinfni tanlang va AI bilan bilimingizni oshiring.
               </p>
             </div>
 
             {/* Stats row */}
             <div className="flex flex-wrap gap-4 shrink-0">
               {[
-                { label: 'Levels', value: '6', icon: Target },
-                { label: 'Lessons', value: '30+', icon: BookOpen },
+                { label: 'Bosqichlar', value: '5', icon: Target },
+                { label: 'Mavzular', value: '25+', icon: BookOpen },
                 { label: 'AI-Powered', value: '100%', icon: Sparkles },
               ].map(({ label, value, icon: Icon }) => (
                 <div key={label} className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 rounded-xl px-5 py-3">
@@ -273,8 +254,8 @@ export const CoursesPage = () => {
                   <div className="relative space-y-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Level</div>
-                        <div className="text-6xl font-black leading-none">{active.level}</div>
+                        <div className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Daraja</div>
+                        <div className="text-4xl font-black leading-none">{active.level}</div>
                       </div>
                       <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                         <active.icon className="h-7 w-7 text-white" />
@@ -292,7 +273,7 @@ export const CoursesPage = () => {
                         {active.duration}
                       </div>
                       <div className="flex flex-col items-end gap-1">
-                        <span className="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Difficulty</span>
+                        <span className="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Murakkablik</span>
                         <DifficultyDots count={active.difficulty} accent="bg-white dark:bg-slate-900" />
                       </div>
                     </div>
@@ -301,7 +282,7 @@ export const CoursesPage = () => {
 
                 {/* Other levels mini-list */}
                 <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 shadow-sm p-4 space-y-1">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 pb-2">All Levels</div>
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 pb-2">Barcha darajalar</div>
                   {curriculum.map((item) => {
                     const Icon = item.icon;
                     const isActive = item.level === activeLevel;
@@ -325,7 +306,7 @@ export const CoursesPage = () => {
                             {item.level} — {item.name}
                           </div>
                           <div className="text-[11px] text-slate-400 font-medium">
-                            {item.topics.length} lessons · {item.duration}
+                            {item.topics.length} dars · {item.duration}
                           </div>
                         </div>
                         {isActive && <ChevronRight className={cn('h-4 w-4 shrink-0', item.textAccent)} />}
@@ -345,7 +326,7 @@ export const CoursesPage = () => {
                         <BookOpen className="h-4 w-4 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-slate-900 dark:text-white text-base">Available Lessons</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white text-base">Mavjud darslar</h3>
                         <p className="text-[11px] text-slate-400 font-semibold">{active.level} · {active.name}</p>
                       </div>
                     </div>
@@ -353,7 +334,7 @@ export const CoursesPage = () => {
                       'text-[11px] font-black px-3 py-1.5 rounded-full',
                       active.bgLight, active.textAccent
                     )}>
-                      {active.topics.length} Lessons
+                      {active.topics.length} Mavzu
                     </span>
                   </div>
 
@@ -387,7 +368,7 @@ export const CoursesPage = () => {
                           </div>
                           <div className="text-[11px] text-slate-400 font-semibold mt-0.5 flex items-center gap-2">
                             <Clock className="h-3 w-3" />
-                            ~15 min · AI-personalized
+                            ~15 daqiqa · AI-tomonidan
                           </div>
                         </div>
 
@@ -405,7 +386,7 @@ export const CoursesPage = () => {
                           )}
                         >
                           <Play className="h-3.5 w-3.5 fill-white" />
-                          Start
+                          Boshlash
                         </button>
 
                         {/* Arrow (always visible) */}
@@ -421,7 +402,7 @@ export const CoursesPage = () => {
                   {/* Footer CTA */}
                   <div className="px-8 py-6 border-t border-slate-50 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
                     <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                      Start any lesson — the AI tutor adapts to your pace.
+                      Xohlagan mavzudan boshlang — AI repetitor sizning tempingizga moslashadi.
                     </p>
                     <button
                       onClick={() => handleStartLesson(active.level, active.topics[0])}
@@ -431,7 +412,7 @@ export const CoursesPage = () => {
                       )}
                     >
                       <Zap className="h-4 w-4" />
-                      Start First Lesson
+                      Birinchi darsni boshlash
                     </button>
                   </div>
                 </div>

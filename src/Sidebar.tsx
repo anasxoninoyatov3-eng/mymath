@@ -8,11 +8,11 @@ import { useUserStore } from '@/userStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
-  { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
-  { icon: BookOpen, label: 'Courses', href: '/courses' },
-  { icon: Sparkles, label: 'Create Lesson', href: '/ai-tutor', },
-  { icon: Trophy, label: 'Leaderboard', href: '/leaderboard' },
-  { icon: User, label: 'Profile', href: '/profile' },
+  { icon: LayoutGrid, label: 'Bosh sahifa', href: '/dashboard' },
+  { icon: BookOpen, label: 'Kurslar', href: '/courses' },
+  { icon: Sparkles, label: 'AI Repetitor', href: '/ai-tutor', },
+  { icon: Trophy, label: 'Reyting', href: '/leaderboard' },
+  { icon: User, label: 'Profil', href: '/profile' },
 ];
 
 export const Sidebar = () => {
@@ -32,10 +32,10 @@ export const Sidebar = () => {
       <div className={cn("flex items-center mb-16 w-full", isSidebarCollapsed ? "justify-center px-0" : "justify-between px-2")}>
         <div className="flex items-center gap-3 px-2">
           <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
-            E
+            M
           </div>
           {(!isSidebarCollapsed || isMobileMenuOpen) && (
-            <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">ENK English</span>
+            <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">MyMath AI</span>
           )}
         </div>
 
@@ -106,7 +106,7 @@ export const Sidebar = () => {
             )}
             />
             {(!isSidebarCollapsed || isMobileMenuOpen) && (
-              <span className="font-bold text-sm text-rose-600">Admin Panel</span>
+              <span className="font-bold text-sm text-rose-600">Admin paneli</span>
             )}
           </Link>
         )}
@@ -121,7 +121,7 @@ export const Sidebar = () => {
           )}
         >
           <LogOut className="h-5 w-5 shrink-0" />
-          {(!isSidebarCollapsed || isMobileMenuOpen) && <span className="ml-3 font-bold">Logout account</span>}
+          {(!isSidebarCollapsed || isMobileMenuOpen) && <span className="ml-3 font-bold">Hisobdan chiqish</span>}
         </button>
       </div>
     </div>

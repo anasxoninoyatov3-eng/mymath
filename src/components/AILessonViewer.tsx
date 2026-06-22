@@ -40,7 +40,7 @@ export const AILessonViewer: React.FC<AILessonViewerProps> = ({
   lesson,
   onAction,
   onClose,
-  language = 'RU',
+  language = 'UZ',
   onFeedback,
   onStartQuiz,
   quizReady = false,
@@ -325,8 +325,8 @@ export const AILessonViewer: React.FC<AILessonViewerProps> = ({
                     <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs">
                       <CheckCircle2 className="h-4 w-4" /> {t.complete}
                     </div>
-                    <Button 
-                      onClick={() => quizReady && onStartQuiz ? onStartQuiz() : onAction?.('practice_all')} 
+                    <Button
+                      onClick={() => quizReady && onStartQuiz ? onStartQuiz() : onAction?.('practice_all')}
                       className="rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2 font-bold text-xs px-4"
                     >
                       <Layers className="h-3.5 w-3.5" />

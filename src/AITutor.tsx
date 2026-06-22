@@ -13,11 +13,11 @@ import { useUserStore } from '@/userStore';
 import { useLessonStore } from '@/lessonStore';
 import { createLesson, createQuiz, generateContent } from '@/services/aiApi';
 
-const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const LEVELS = ['1-sinf', '2-sinf', '3-sinf', '4-sinf', '5-sinf', '6-sinf', '7-sinf', '8-sinf', '9-sinf', '10-sinf', '11-sinf'];
 
 export const AITutorPage = () => {
   const [searchParams] = useSearchParams();
-  const initialLevel = searchParams.get('level') || 'B1';
+  const initialLevel = searchParams.get('level') || '5-sinf';
   const initialTopic = searchParams.get('topic') || '';
   const autoStart = searchParams.get('auto') === '1';
 
@@ -46,27 +46,28 @@ export const AITutorPage = () => {
 
   function getSystemInstruction(lang: 'RU' | 'UZ') {
     const langName = lang === 'RU' ? 'Russian (русский язык)' : 'Uzbek (o\'zbek tili)';
-    return `You are the ENK Tutor, a friendly and expert English language teacher.
-Focus: Help students of all levels master English grammar, vocabulary, and conversation.
-Adapt the teaching strategy based on the DIFFICULTY and GOAL.
+    return `You are the MyMath AI Tutor, a friendly and expert Mathematics teacher.
+Focus: Help students of all levels master Mathematics, from basic arithmetic to advanced calculus.
+Adapt the teaching strategy based on the DIFFICULTY (Grade level) and GOAL.
 
 STRUCTURE RULES:
 1. NO GREETINGS. Start directly with the lesson content.
 2. Give 4-6 sections.
 3. Use Section Types: 'concept', 'exercise', 'summary', 'example'.
-4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, vocabulary definitions, and instructions. Keep English terms/words/sentences as examples in English.
-5. Return ONLY a valid JSON object. No markdown, no extra text.
+4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, and instructions.
+5. Content: Use LaTeX for mathematical formulas (e.g., $x^2 + y^2 = r^2$).
+6. Return ONLY a valid JSON object. No markdown, no extra text.
 
 The JSON must follow this shape exactly:
 {
   "topic": "string - the lesson topic",
-  "level": "string - A1/A2/B1/B2/C1/C2",
+  "level": "string - Grade level",
   "goal": "string - theoretical/practical/professional",
   "sections": [
-    { "title": "string", "content": "string with markdown formatting", "type": "concept|exercise|summary|example" }
+    { "title": "string", "content": "string with markdown formatting and LaTeX", "type": "concept|exercise|summary|example" }
   ],
   "vocabulary": [
-    { "term": "English word/phrase", "definition": "definition in ${langName}" }
+    { "term": "Mathematical term", "definition": "definition in ${langName}" }
   ],
   "sources": ["string - reference sources"]
 }`;
@@ -106,7 +107,7 @@ The JSON must follow this shape exactly:
       // but to keep it simple for now and fix the TS error, I'll just use it in a console log
       // OR better, I'll just mark it as optional and use it to modify the prompt if I had control here.
       // Wait, createLesson doesn't take feedback. I'll change createLesson signature!
-      
+
       console.log('Generating with feedback:', feedback);
 
       if (parsedLesson?.sections?.length) {
@@ -185,16 +186,16 @@ The JSON must follow this shape exactly:
 
       let instruction = '';
       if (isQuiz) {
-        instruction = `You are a Quiz Generator for an English learning app. 
+        instruction = `You are a Mathematics Quiz Generator for the MyMath app. 
 GENERATE A JSON OBJECT for a Multiple Choice Quiz with exactly this structure:
 {
   "topic": "quiz topic",
   "questions": [
     {
-      "question": "The question in English or ${langName}",
+      "question": "The question in ${langName} (use LaTeX for formulas)",
       "options": ["A", "B", "C", "D"],
       "correctIndex": 0,
-      "explanation": "explanation of the correct answer in ${langName}"
+      "explanation": "explanation of the correct answer in ${langName} (with LaTeX)"
     }
   ]
 }
@@ -276,13 +277,13 @@ Return ONLY valid JSON.`;
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[10px] font-bold text-indigo-600 uppercase tracking-widest">
                   <Sparkles className="h-3 w-3" />
-                  AI Learning Assistant
+                  AI O'quv yordamchisi
                 </div>
-                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">ENK Tutor</h1>
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">MyMath AI</h1>
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-lg">
                   {language === 'RU'
-                    ? 'Персонализированные уроки на базе ИИ.'
-                    : 'AI asosidagi shaxsiy darslar.'}
+                    ? 'Персонализированные уроки математики на базе ИИ.'
+                    : 'AI asosidagi shaxsiy matematika darslari.'}
                 </p>
               </div>
 
@@ -293,7 +294,7 @@ Return ONLY valid JSON.`;
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {LEVELS.map(lvl => (
-                      <button key={lvl} onClick={() => setLevel(lvl)} className={cn('h-12 rounded-xl text-sm font-bold transition-all border', level === lvl ? 'bg-indigo-600 text-white' : 'bg-slate-50 dark:bg-slate-800')}>{lvl}</button>
+                      <button key={lvl} onClick={() => setLevel(lvl)} className={cn('h-12 rounded-xl text-[10px] font-bold transition-all border', level === lvl ? 'bg-indigo-600 text-white' : 'bg-slate-50 dark:bg-slate-800')}>{lvl}</button>
                     ))}
                   </div>
                 </div>
@@ -434,11 +435,11 @@ Return ONLY valid JSON.`;
                   ) : (
                     <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="h-full flex flex-col items-center justify-center text-center py-20">
                       <div className="h-24 w-24 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center mb-6 border border-slate-100 shadow-sm"><BrainCircuit className="h-10 w-10 text-slate-300" /></div>
-                      <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white tracking-tight">AI Smart Tutor</h2>
+                      <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white tracking-tight">AI Aqlli Repetitor</h2>
                       <p className="max-w-md text-slate-500 dark:text-slate-400 font-medium text-base">
                         {language === 'RU'
-                          ? 'Выберите уровень, цель и введите тему для персонализированного урока английского языка.'
-                          : 'Daraja, maqsad va mavzuni tanlang — shaxsiy ingliz tili darsi yaratiladi.'}
+                          ? 'Выберите класс, цель и введите тему для персонализированного урока математики.'
+                          : 'Sinf, maqsad va mavzuni tanlang — shaxsiy matematika darsi yaratiladi.'}
                       </p>
                     </motion.div>
                   )}

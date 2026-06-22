@@ -90,12 +90,12 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
                 <div key={i} className={cn("p-4 rounded-2xl border", isCorrect ? "bg-emerald-50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-800/30" : "bg-rose-50 border-rose-100 dark:bg-rose-900/10 dark:border-rose-800/30")}>
                   <p className="font-bold text-slate-800 dark:text-slate-200 mb-2">{i + 1}. {q.question}</p>
                   <p className="text-sm font-medium mb-1">
-                    <span className="text-slate-500">Your answer: </span>
+                    <span className="text-slate-500">Sizning javobingiz: </span>
                     <span className={isCorrect ? "text-emerald-600" : "text-rose-600 line-through"}>{q.options[answers[i]]}</span>
                   </p>
                   {!isCorrect && (
                     <p className="text-sm font-medium text-emerald-600 mb-2">
-                      Correct answer: {q.options[q.correctIndex]}
+                      To'g'ri javob: {q.options[q.correctIndex]}
                     </p>
                   )}
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 p-3 bg-white/50 dark:bg-black/20 rounded-xl leading-relaxed">

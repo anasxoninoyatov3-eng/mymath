@@ -16,7 +16,7 @@ export const ChatWidget = () => {
     {
       id: 'init',
       role: 'assistant',
-      content: 'Salom! 👋 Men Josh — sizning AI ingliz tili o\'qituvchingizman. Grammatika, lug\'at yoki ingliz tilini yaxshilash bo\'yicha savollar bering!\n\nПривет! Я Джош — ваш AI учитель английского. Спрашивайте о грамматике, лексике или как улучшить свой английский!'
+      content: 'Salom! 👋 Men Josh — sizning AI matematika o\'qituvchingizman. Geometriya, algebra yoki mantiqiy misollar bo\'yicha savollar bering! Men sizga yordam berishdan xursandman.'
     }
   ]);
   const [input, setInput] = useState('');
@@ -62,12 +62,11 @@ export const ChatWidget = () => {
     try {
       if (!VITE_GROQ_API_KEY_CHAT) throw new Error('API kaliti topilmadi.');
 
-      const systemInstruction = `You are Josh, a helpful, friendly and enthusiastic AI assistant and teacher.
+      const systemInstruction = `You are Josh, a helpful, friendly and enthusiastic AI assistant and Mathematics teacher.
 
 LANGUAGE RULES:
-- You can communicate in ANY language requested by the user (Uzbek, Russian, English, Spanish, etc.).
-- Always reply in the same language the user uses, or the language they ask you to use.
-- If the user asks for an explanation of a topic, provide it in their language.
+- Communicate EXCLUSIVELY in Uzbek language.
+- If the user asks in another language, politely reply in Uzbek that you specialize in teaching in Uzbek.
 
 CONCISENESS RULES:
 - Keep your explanations very brief and concise. 
@@ -78,7 +77,7 @@ CONCISENESS RULES:
 YOUR PERSONALITY:
 - Be warm, encouraging, and patient.
 - Use emojis occasionally to be friendly 😊.
-- If teaching English, gently correct mistakes and provide simple examples.
+- Use LaTeX for formulas.
 - Always encourage the student.`;
 
       const conversationHistory = messages.map(m => ({
@@ -136,11 +135,11 @@ YOUR PERSONALITY:
       const errStr = String(err);
       
       if (errStr.includes('API key') || errStr.includes('API_KEY_INVALID')) {
-        errorMsg = '❌ API kalit noto\'g\'ri. .env fayldagi kalitni tekshiring.\n\n❌ API ключ неверный. Проверьте ключ в .env файле.';
+        errorMsg = '❌ API kalit noto\'g\'ri. .env fayldagi kalitni tekshiring.';
       } else if (errStr.includes('429') || errStr.includes('quota') || errStr.includes('RESOURCE_EXHAUSTED')) {
-        errorMsg = '⏳ Sizning API kalitingiz bepul ishlash limitini tugatgan (Qouta 0). Google AI Studio\'dan yangi kalit oling.\n\n⏳ Ваш API ключ исчерпал лимит запросов. Пожалуйста, получите новый ключ в Google AI Studio.';
+        errorMsg = '⏳ Sizning API kalitingiz bepul ishlash limitini tugatgan (Qouta 0). Google AI Studio\'dan yangi kalit oling.';
       } else {
-        errorMsg = `⚠️ Xatolik yuz berdi. Qaytadan urinib ko'ring.\n\n⚠️ Произошла ошибка. Попробуйте снова.\n\n(${err.message || errStr})`;
+        errorMsg = `⚠️ Xatolik yuz berdi. Qaytadan urinib ko'ring.\n\n(${err.message || errStr})`;
       }
       
       setMessages(prev => [...prev, {
@@ -190,7 +189,7 @@ YOUR PERSONALITY:
                     <Bot className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="font-bold text-sm">Josh (AI Teacher)</div>
+                    <div className="font-bold text-sm">Josh (AI Ustoz)</div>
                     <div className="text-[10px] text-white/80 font-medium flex items-center gap-1">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online
                     </div>
@@ -204,7 +203,7 @@ YOUR PERSONALITY:
                       "p-1.5 rounded-md transition-colors",
                       autoSpeak ? "bg-white/20 text-white" : "text-white/40 hover:text-white/70"
                     )}
-                    title={autoSpeak ? "Ovozli javob yoqilgan / Голосовой ответ включён" : "Ovozli javob o'chirilgan / Голосовой ответ выключен"}
+                    title={autoSpeak ? "Ovozli javob yoqilgan" : "Ovozli javob o'chirilgan"}
                   >
                     {autoSpeak ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
                   </button>
@@ -252,9 +251,9 @@ YOUR PERSONALITY:
                           title="Tinglab ko'rish / Послушать"
                         >
                           {speakingId === msg.id ? (
-                            <><VolumeX className="h-3 w-3" /> Stop</>
+                            <><VolumeX className="h-3 w-3" /> To'xtatish</>
                           ) : (
-                            <><Volume2 className="h-3 w-3" /> 🎧</>
+                            <><Volume2 className="h-3 w-3" /> Tinglash</>
                           )}
                         </button>
                       </div>
@@ -286,7 +285,7 @@ YOUR PERSONALITY:
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Xabar yozing... / Напишите сообщение..."
+                    placeholder="Xabar yozing..."
                     className="flex-1 h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 text-sm focus:ring-2 focus:ring-indigo-600 transition-all dark:text-white placeholder:text-slate-400"
                   />
                   <button

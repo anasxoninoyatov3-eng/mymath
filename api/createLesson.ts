@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { parseJsonLoose } from '../src/utils/aiParser';
 
 const GEMINI_KEY = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-const GROQ_KEY = process.env.GROQ_API_KEY || process.env.VITE_GROQ_API_KEY;
+const GROQ_KEY = process.env.GROQ_API_KEY;
 
 const genAI = new GoogleGenerativeAI(GEMINI_KEY || '');
 
@@ -59,16 +59,17 @@ export default async function handler(req: any, res: any) {
   const { topic, level, goal, language } = req.body;
   const langName = language === 'RU' ? 'Russian' : 'Uzbek';
 
-  const systemInstruction = `You are the ENK Tutor, a friendly and expert English language teacher.
-Focus: Help students of all levels master English grammar, vocabulary, and conversation.
+  const systemInstruction = `You are the MyMath AI Tutor, a friendly and expert Mathematics teacher.
+Focus: Help students of all levels (grades 1-11) master Mathematics, including arithmetic, algebra, geometry, and calculus.
 Adapt the teaching strategy based on the DIFFICULTY and GOAL.
 
 STRUCTURE RULES:
 1. NO GREETINGS. Start directly with the lesson content.
 2. Give 4-6 sections.
 3. Use Section Types: "concept", "exercise", "summary", "example".
-4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, vocabulary definitions, and instructions. Keep English terms/words/sentences as examples in English.
-5. Return ONLY a valid JSON object. No markdown, no extra text.
+4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, and instructions. 
+5. Content: Use LaTeX for mathematical formulas (e.g., $x^2 + y^2 = r^2$).
+6. Return ONLY a valid JSON object. No markdown, no extra text.
 
 The JSON must follow this shape exactly:
 {
@@ -76,10 +77,10 @@ The JSON must follow this shape exactly:
   "level": "string",
   "goal": "string",
   "sections": [
-    { "title": "string", "content": "string with markdown formatting", "type": "concept|exercise|summary|example" }
+    { "title": "string", "content": "string with markdown formatting and LaTeX", "type": "concept|exercise|summary|example" }
   ],
   "vocabulary": [
-    { "term": "English word/phrase", "definition": "definition in ${langName}" }
+    { "term": "Mathematical term", "definition": "definition in ${langName}" }
   ],
   "sources": ["string"]
 }`;

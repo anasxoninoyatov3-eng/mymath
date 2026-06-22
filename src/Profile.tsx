@@ -20,7 +20,7 @@ export const ProfilePage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center p-8">
         <Card className="p-12 text-center max-w-md">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Please sign in</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Iltimos, tizimga kiring</h2>
         </Card>
       </div>
     );
@@ -47,15 +47,15 @@ export const ProfilePage = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Profile</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your account and learning progress</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Profil</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">Hisobingizni va o'quv natijalaringizni boshqaring</p>
           </div>
           <Button
             onClick={() => isEditing ? handleSave() : setIsEditing(true)}
             className="flex items-center gap-2"
           >
             {isEditing ? <Save className="h-4 w-4" /> : <Edit2 className="h-4 w-4" />}
-            {isEditing ? 'Save' : 'Edit'}
+            {isEditing ? 'Saqlash' : 'Tahrirlash'}
           </Button>
         </div>
 
@@ -83,7 +83,7 @@ export const ProfilePage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
-                      First Name
+                      Ism
                     </label>
                     {isEditing ? (
                       <Input
@@ -102,7 +102,7 @@ export const ProfilePage = () => {
 
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
-                      Last Name
+                      Familiya
                     </label>
                     {isEditing ? (
                       <Input
@@ -121,7 +121,7 @@ export const ProfilePage = () => {
 
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
-                      Email Address
+                      Elektron pochta
                     </label>
                     <div className="text-base font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2.5 overflow-hidden">
                       <div className="h-8 w-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center shrink-0">
@@ -133,7 +133,7 @@ export const ProfilePage = () => {
 
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
-                      Knowledge Level
+                      Bilim darajasi
                     </label>
                     {isEditing ? (
                       <div className="relative">
@@ -167,7 +167,7 @@ export const ProfilePage = () => {
           {/* Stats Card */}
           <Card className="p-8 border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl bg-white dark:bg-slate-900 space-y-8">
             <div className="space-y-2">
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Stats</div>
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Statistika</div>
             </div>
 
             <div className="space-y-6">
@@ -189,8 +189,8 @@ export const ProfilePage = () => {
                     <TrendingUp className="h-5 w-5" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-slate-400 uppercase">Streak</div>
-                    <div className="text-xl font-bold text-slate-900 dark:text-white">{user.streak} days</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">Seriya</div>
+                    <div className="text-xl font-bold text-slate-900 dark:text-white">{user.streak} kun</div>
                   </div>
                 </div>
               </div>
@@ -201,7 +201,7 @@ export const ProfilePage = () => {
                     <GraduationCap className="h-5 w-5" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-slate-400 uppercase">Topics Mastered</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">O'zlashtirilgan mavzular</div>
                     <div className="text-xl font-bold text-slate-900 dark:text-white">{masteredCount}</div>
                   </div>
                 </div>
@@ -209,9 +209,9 @@ export const ProfilePage = () => {
             </div>
 
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Join Date</div>
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">A'zo bo'lgan sana</div>
               <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">
-                {new Date(user.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                {new Date(user.joinDate).toLocaleDateString('uz-UZ', { year: 'numeric', month: 'long', day: 'numeric' })}
               </div>
             </div>
           </Card>
@@ -220,7 +220,7 @@ export const ProfilePage = () => {
         {/* Topic Progress */}
         {user.topicProgress.length > 0 && (
           <Card className="p-8 border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Topic Progress</h2>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Mavzular bo'yicha taraqqiyot</h2>
             <div className="space-y-4">
               {user.topicProgress.map((progress) => (
                 <div key={`${progress.topic}-${progress.level}`} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
@@ -229,7 +229,7 @@ export const ProfilePage = () => {
                       {progress.topic}
                     </div>
                     <div className="text-xs text-slate-400 mt-1">
-                      Level {progress.level} • {progress.attempts} attempt{progress.attempts > 1 ? 's' : ''}
+                      Daraja {progress.level} • {progress.attempts} urinish
                     </div>
                   </div>
                   <div className="flex items-center gap-4 ml-4">
@@ -245,7 +245,7 @@ export const ProfilePage = () => {
                         ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' 
                         : 'bg-amber-50 text-amber-600 border border-amber-100'
                     }`}>
-                      {progress.mastered ? 'Mastered' : 'In Progress'}
+                      {progress.mastered ? "O'zlashtirilgan" : "Jarayonda"}
                     </div>
                   </div>
                 </div>

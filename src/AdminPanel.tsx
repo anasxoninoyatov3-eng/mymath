@@ -94,10 +94,10 @@ export const AdminPanel = () => {
                 className="w-full h-10 pl-10 pr-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-none text-sm focus:ring-2 focus:ring-indigo-600 font-medium transition-all"
               />
             </div>
-            <button 
+            <button
               onClick={() => {
-                if(confirm("Haqiqatan ham barcha foydalanuvchi ma'lumotlarini o'chirib tashlamoqchimisiz? (Bu 'Abubakr Pioneer' kabi eski ma'lumotlarni tozalaydi)")) {
-                   useUserStore.getState().clearAllUsers();
+                if (confirm("Haqiqatan ham barcha foydalanuvchi ma'lumotlarini o'chirib tashlamoqchimisiz? (Bu 'Abubakr Pioneer' kabi eski ma'lumotlarni tozalaydi)")) {
+                  useUserStore.getState().clearAllUsers();
                 }
               }}
               title="Clear All Legacy Data"

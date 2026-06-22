@@ -8,7 +8,7 @@ export const Navbar = () => {
   const { isDarkMode, toggleDarkMode, isMobileMenuOpen, toggleMobileMenu } = useUiStore();
   const { user } = useUserStore();
 
-  const displayName = user ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ''}` : 'Profile';
+  const displayName = user ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ''}` : 'Profil';
 
   return (
     <header className="sticky top-0 z-40 w-full flex h-16 items-center justify-between px-4 md:px-8 bg-white/80 dark:bg-[#0f172a]/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all">
@@ -24,7 +24,7 @@ export const Navbar = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300 dark:text-slate-500 group-focus-within:text-indigo-600 transition-colors" />
           <input 
             type="text"
-            placeholder="Quick search..."
+            placeholder="Tezkor qidiruv..."
             className="h-10 w-full bg-slate-50 dark:bg-slate-800/50 border-none pl-10 pr-4 text-sm font-medium rounded-xl focus:ring-2 focus:ring-indigo-600/20 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
           />
         </div>
@@ -42,13 +42,13 @@ export const Navbar = () => {
           <Bell className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-indigo-600 border-2 border-white dark:border-slate-800" />
         </Button>
-
+ 
         <div className="hidden h-6 w-px bg-slate-100 dark:bg-slate-800 mx-1 md:block" />
 
         <Link to="/profile" className="flex items-center space-x-2 md:space-x-4 group">
           <div className="flex flex-col items-end hidden sm:flex">
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">{displayName}</span>
-            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter">Level {user?.currentLevel || 'A1'}</span>
+            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter">{user?.currentLevel || '7-sinf'}</span>
           </div>
           <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm transition-all group-hover:ring-4 group-hover:ring-indigo-100 dark:group-hover:ring-indigo-900/40 overflow-hidden shadow-sm">
             {user?.picture ? (

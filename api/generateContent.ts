@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { parseJsonLoose } from '../src/utils/aiParser';
 
 const GEMINI_KEY = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-const GROQ_KEY = process.env.VITE_GROQ_API_KEY_LESSON || process.env.VITE_GROQ_API_KEY_CHAT || process.env.GROQ_API_KEY;
+const GROQ_KEY = process.env.GROQ_API_KEY;
 
 const genAI = new GoogleGenerativeAI(GEMINI_KEY || '');
 

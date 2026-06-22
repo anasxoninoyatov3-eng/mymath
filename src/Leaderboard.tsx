@@ -29,7 +29,7 @@ export const LeaderboardPage = () => {
     ...mockData,
     ...(currentUser ? [{
       id: 999,
-      name: `${currentUser.firstName} ${currentUser.lastName}`.trim() || 'You',
+      name: `${currentUser.firstName} ${currentUser.lastName}`.trim() || 'Siz',
       points: currentUser.xp || 0,
       streak: currentUser.streak || 0,
       level: currentUser.currentLevel || 'B1',
@@ -51,13 +51,13 @@ export const LeaderboardPage = () => {
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-600">
             <Trophy className="h-3 w-3" />
-            Top Learners
+            Eng yaxshi o'quvchilar
           </div>
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white leading-none">
-            ENK <span className="text-indigo-600">Leaderboard</span>
+            Math <span className="text-indigo-600">Reyting</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 font-medium max-w-2xl leading-tight">
-            Celebrate your progress and see how you rank against other learners in the ENK community.
+            O'z natijalaringizni nishonlang va boshqa o'quvchilar bilan raqobatlashing.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export const LeaderboardPage = () => {
               timeframe === 'weekly' ? "bg-white dark:bg-slate-900 text-indigo-600 shadow-sm" : "text-slate-400 hover:text-slate-600 dark:text-slate-300"
             )}
           >
-            This Week
+            Shu hafta
           </button>
           <button 
             onClick={() => setTimeframe('all-time')}
@@ -79,7 +79,7 @@ export const LeaderboardPage = () => {
               timeframe === 'all-time' ? "bg-white dark:bg-slate-900 text-indigo-600 shadow-sm" : "text-slate-400 hover:text-slate-600 dark:text-slate-300"
             )}
           >
-            All Time
+            Barcha vaqt
           </button>
         </div>
       </div>
@@ -164,14 +164,14 @@ export const LeaderboardPage = () => {
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300" />
             <input 
               type="text" 
-              placeholder="Search for a learner..."
+              placeholder="O'quvchini qidirish..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-14 pr-6 h-14 bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-indigo-600/10 font-bold text-sm text-slate-900 dark:text-white placeholder:text-slate-300"
             />
           </div>
           <div className="text-[10px] font-bold text-slate-400 font-semibold flex items-center gap-4">
-             <TrendingUp className="h-4 w-4 text-emerald-500" /> Leaderboard is up to date
+             <TrendingUp className="h-4 w-4 text-emerald-500" /> Reyting yangilangan
           </div>
         </div>
 
@@ -179,12 +179,12 @@ export const LeaderboardPage = () => {
         <div className="divide-y divide-slate-50">
           {/* Header Row */}
           <div className="grid grid-cols-12 gap-6 p-6 px-10 text-[10px] font-bold text-slate-300 font-semibold bg-slate-50 dark:bg-slate-800/30">
-            <div className="col-span-1 text-center">Rank</div>
+            <div className="col-span-1 text-center">O'rin</div>
             <div className="col-span-11 grid grid-cols-11 gap-4">
-               <div className="col-span-4">Learner</div>
-               <div className="col-span-2 text-center">Level</div>
-               <div className="col-span-2 text-center">Streak</div>
-               <div className="col-span-3 text-right">Total XP</div>
+               <div className="col-span-4">O'quvchi</div>
+               <div className="col-span-2 text-center">Daraja</div>
+               <div className="col-span-2 text-center">Seriya</div>
+               <div className="col-span-3 text-right">Jami XP</div>
             </div>
           </div>
 
@@ -222,7 +222,7 @@ export const LeaderboardPage = () => {
                     <span className="font-bold text-slate-900 dark:text-white text-lg tracking-tight">
                       {user.name}
                     </span>
-                    {(user as any).isCurrentUser && <span className="text-[9px] uppercase font-bold text-indigo-600 tracking-widest">You</span>}
+                    {(user as any).isCurrentUser && <span className="text-[9px] uppercase font-bold text-indigo-600 tracking-widest">Siz</span>}
                   </div>
                 </div>
 

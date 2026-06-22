@@ -53,16 +53,16 @@ export const LoginPage = () => {
         className="w-full max-w-[400px]"
       >
         <div className="text-center mb-10 space-y-4">
-          <div className="h-16 w-16 rounded-2xl bg-indigo-600 mx-auto flex items-center justify-center text-white font-black text-3xl shadow-xl shadow-indigo-200 dark:shadow-none">E</div>
-          <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">ENK English</h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-tight">Your gateway to mastering English.</p>
+          <div className="h-16 w-16 rounded-2xl bg-indigo-600 mx-auto flex items-center justify-center text-white font-black text-3xl shadow-xl shadow-indigo-200 dark:shadow-none">M</div>
+          <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">MyMath AI</h1>
+          <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-tight">Matematika olamiga xush kelibsiz.</p>
         </div>
 
         <Card className="border border-slate-200 dark:border-slate-800 shadow-2xl rounded-3xl overflow-hidden bg-white dark:bg-slate-900">
           <CardContent className="p-10 space-y-8">
             <div className="space-y-2 text-center">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Sign In</h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Use your Google account to continue</p>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Kirish</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Davom etish uchun Google hisobingizdan foydalaning</p>
             </div>
 
             <Button
@@ -72,19 +72,19 @@ export const LoginPage = () => {
               className="w-full h-16 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-100 dark:shadow-none transition-all font-bold text-lg flex items-center justify-center gap-4 group"
             >
               {isGoogleLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : <div className="bg-white p-1.5 rounded-lg"><GoogleIcon /></div>}
-              {isGoogleLoading ? 'Connecting...' : 'Continue with Google'}
+              {isGoogleLoading ? 'Ulanmoqda...' : 'Google orqali kirish'}
             </Button>
 
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
               <p className="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                Safe & Secure Authentication via Google OAuth
+                Google OAuth orqali xavfsiz autentifikatsiya
               </p>
             </div>
           </CardContent>
         </Card>
 
         <p className="mt-8 text-center text-xs text-slate-400 font-medium px-4">
-          By continuing, you agree to our <span className="text-indigo-600 font-bold cursor-pointer">Terms of Service</span> and <span className="text-indigo-600 font-bold cursor-pointer">Privacy Policy</span>.
+          Davom etish orqali siz bizning <span className="text-indigo-600 font-bold cursor-pointer">Xizmat ko'rsatish shartlari</span> va <span className="text-indigo-600 font-bold cursor-pointer">Maxfiylik siyosati</span>imizga rozilik bildirasiz.
         </p>
       </motion.div>
     </div>

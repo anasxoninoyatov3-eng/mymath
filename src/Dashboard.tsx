@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Card';
 import { Button } from '@/Button';
-import { Play, Star, Flame, Trophy, TrendingUp, Zap, Rocket, ChevronRight, Globe, Terminal } from 'lucide-react';
+import { Play, Star, Flame, Trophy, TrendingUp, Zap, Rocket, ChevronRight, Calculator, Binary, Scale, Pi } from 'lucide-react';
 import { cn } from '@/utils';
 import { useUserStore } from '@/userStore';
 
@@ -35,10 +35,10 @@ export const DashboardPage = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <motion.div variants={item} className="space-y-2">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-            Welcome back, <span className="text-indigo-600">{user?.firstName || 'Learner'}</span>
+            Xush kelibsiz, <span className="text-indigo-600">{user?.firstName || 'O\'quvchi'}</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
-            {user?.xp && user.xp > 0 ? "You're making great progress! Keep it up." : "Ready to start your first lesson?"}
+            {user?.xp && user.xp > 0 ? "Siz ajoyib natija ko'rsatyapsiz! Shunday davom eting." : "Birinchi matematika darsini boshlashga tayyormisiz?"}
           </p>
         </motion.div>
         
@@ -49,7 +49,7 @@ export const DashboardPage = () => {
              </div>
              <div>
                 <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.streak || 0}</div>
-                <div className="text-[11px] font-semibold text-slate-400 mt-1">Day Streak</div>
+                <div className="text-[11px] font-semibold text-slate-400 mt-1">Kunlik seriya</div>
              </div>
           </div>
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 py-3 rounded-xl flex items-center gap-4 shadow-sm">
@@ -58,7 +58,7 @@ export const DashboardPage = () => {
              </div>
              <div>
                 <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.xp?.toLocaleString() || 0}</div>
-                <div className="text-[11px] font-semibold text-slate-400 mt-1">Total XP</div>
+                <div className="text-[11px] font-semibold text-slate-400 mt-1">Umumiy XP</div>
              </div>
           </div>
         </motion.div>
@@ -72,10 +72,10 @@ export const DashboardPage = () => {
           <CardContent className="h-full p-10 flex flex-col justify-between text-white relative z-10">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-lg bg-white dark:bg-slate-900/20 px-3 py-1 text-[11px] font-bold backdrop-blur-md border border-white/10">
-                Current Level: {user?.currentLevel || 'B1'}
+                Joriy daraja: {user?.currentLevel || '7-sinf'}
               </div>
-              <h2 className="text-4xl font-bold max-w-sm leading-tight">Effective Business Writing</h2>
-              <p className="text-white/80 font-medium max-w-xs text-base">Master the art of professional emails and reports.</p>
+              <h2 className="text-4xl font-bold max-w-sm leading-tight">Geometriya va teorema</h2>
+              <p className="text-white/80 font-medium max-w-xs text-base">Pifagor teoremasi va uning amaliy yechimlari bilan tanishing.</p>
             </div>
             
             <div className="flex flex-col md:flex-row items-end justify-between gap-8 pt-8 border-t border-white/10">
@@ -90,7 +90,7 @@ export const DashboardPage = () => {
               </div>
               <Button asChild className="bg-white dark:bg-slate-900 text-indigo-600 hover:bg-white dark:bg-slate-900/90 h-12 px-8 rounded-lg text-base font-bold flex items-center gap-3">
                 <Link to="/courses">
-                  <Play className="h-4 w-4 fill-indigo-600" /> Continue
+                  <Play className="h-4 w-4 fill-indigo-600" /> Davom etish
                 </Link>
               </Button>
             </div>
@@ -104,7 +104,7 @@ export const DashboardPage = () => {
                  <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center">
                     <TrendingUp className="h-5 w-5 text-indigo-600" />
                  </div>
-                 Activity
+                 Faollik
               </CardTitle>
            </CardHeader>
            
@@ -119,14 +119,13 @@ export const DashboardPage = () => {
                       i === 3 ? "bg-indigo-600" : "bg-slate-100 group-hover/bar:bg-slate-200"
                     )} 
                   />
-                  <span className="text-[8px] font-black text-slate-300 uppercase">{['m','t','w','t','f','s','s'][i]}</span>
+                  <span className="text-[8px] font-black text-slate-300 uppercase">{['d','s','ch','p','j','sh','y'][i]}</span>
                 </div>
               ))}
            </div>
 
            <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[11px] font-semibold text-slate-400">
-              <span>Weekly Average</span>
-
+              <span>Haftalik o'rtacha</span>
            </div>
         </Card>
 
@@ -136,36 +135,33 @@ export const DashboardPage = () => {
               <Zap className="h-6 w-6 fill-orange-600" />
            </div>
            <div>
-              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Today's Focus</div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">Compound Tenses</div>
+              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Bugungi mavzu</div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white">Kvadrat tenglamalar</div>
            </div>
         </Card>
-
-
 
         <Card className="md:col-span-3 lg:col-span-4 row-span-1 border-slate-200 dark:border-slate-800 shadow-sm p-6 flex items-center gap-5 group hover:bg-slate-50 dark:bg-slate-800 transition-all rounded-xl bg-white dark:bg-slate-900">
            <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:scale-105 transition-transform">
               <Trophy className="h-6 w-6" />
            </div>
            <div>
-              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Rank</div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.currentLevel || 'Junior'}</div>
+              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Unvon</div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.currentLevel || 'Boshlang\'ich'}</div>
            </div>
         </Card>
 
         {/* Recommendations */}
         <div className="md:col-span-6 lg:col-span-12 mt-8 space-y-8">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Recommended for You</h3>
-
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Siz uchun tavsiyalar</h3>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: 'Fluent Conversations', desc: 'Master daily dialogue and natural expressions.', icon: Globe, type: 'Speaking' },
-              { title: 'Essential Grammar', desc: 'The foundation for professional communication.', icon: Zap, type: 'Grammar' },
-              { title: 'Travel Vocabulary', desc: 'Everything you need for your next adventure.', icon: Rocket, type: 'Vocabulary' },
-              { title: 'Professional English', desc: 'Writing and etiquette for the modern office.', icon: Terminal, type: 'Business' }
+              { title: 'Algebra asosi', desc: 'Sonli ifodalar va o\'zgaruvchilar ustida amallar.', icon: Calculator, type: 'Algebra' },
+              { title: 'Logika va Mantiq', desc: 'Murakkab mantiqiy misollarni yechish usullari.', icon: Binary, type: 'Mantiq' },
+              { title: 'Planimetriya', desc: 'Tekislikdagi shakllarning xossalari va yuzalari.', icon: Scale, type: 'Geometriya' },
+              { title: 'Ehtimollar', desc: 'Tasodifiy hodisalar va ularni hisoblash usullari.', icon: Pi, type: 'Statistika' }
             ].map((node, i) => (
               <Link key={i} to="/courses" className="block">
                 <Card className="border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 group cursor-pointer hover:bg-slate-50 dark:bg-slate-800 transition-all rounded-xl bg-white dark:bg-slate-900 h-full">
@@ -178,7 +174,7 @@ export const DashboardPage = () => {
                     <p className="text-sm text-slate-500 font-medium leading-relaxed">{node.desc}</p>
                   </div>
                   <div className="pt-4 flex items-center gap-2 text-indigo-600 font-bold text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    View Course <ChevronRight className="h-3 w-3" />
+                    Kursni ko'rish <ChevronRight className="h-3 w-3" />
                   </div>
                 </Card>
               </Link>

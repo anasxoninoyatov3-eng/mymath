@@ -1,7 +1,7 @@
 import { GeneratedLesson, GeneratedQuiz, LearningGoal } from '@/types';
 import { parseJsonLoose } from '@/utils/aiParser';
 
-const GROQ_API_KEY = (import.meta as any).env.VITE_GROQ_API_KEY_LESSON || '';
+const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || '';
 
 async function callGroqDirect(
   systemInstruction: string,
@@ -51,27 +51,28 @@ async function callGroqDirect(
 
 function getLessonSystemInstruction(language: 'RU' | 'UZ'): string {
   const langName = language === 'RU' ? 'Russian' : 'Uzbek';
-  return `You are the ENK Tutor, a friendly and expert English language teacher.
-Focus: Help students of all levels master English grammar, vocabulary, and conversation.
+  return `You are the MyMath AI Tutor, a friendly and expert Mathematics teacher.
+Focus: Help students of all levels (grades 1-11) master Mathematics, including arithmetic, algebra, geometry, and calculus.
 Adapt the teaching strategy based on the DIFFICULTY and GOAL.
 
 STRUCTURE RULES:
 1. NO GREETINGS. Start directly with the lesson content.
 2. Give 4-6 sections.
 3. Use Section Types: "concept", "exercise", "summary", "example".
-4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, vocabulary definitions, and instructions. Keep English terms/words/sentences as examples in English.
-5. Return ONLY a valid JSON object. No markdown, no extra text.
+4. Language: EXPLAIN everything in ${langName}. Use ${langName} for all explanations, descriptions, and instructions.
+5. Content: Use LaTeX for mathematical formulas (e.g., $x^2 + y^2 = r^2$).
+6. Return ONLY a valid JSON object. No markdown, no extra text.
 
 The JSON must follow this shape exactly:
 {
-  "topic": "string - the lesson topic",
-  "level": "string - A1/A2/B1/B2/C1/C2",
+  "topic": "string - the math topic",
+  "level": "string - Grade 1-11",
   "goal": "string - theoretical/practical/professional",
   "sections": [
-    { "title": "string", "content": "string with markdown formatting", "type": "concept|exercise|summary|example" }
+    { "title": "string", "content": "string with markdown formatting and LaTeX", "type": "concept|exercise|summary|example" }
   ],
   "vocabulary": [
-    { "term": "English word/phrase", "definition": "definition in ${langName}" }
+    { "term": "Mathematical term", "definition": "definition in ${langName}" }
   ],
   "sources": ["string - reference sources"]
 }`;
@@ -79,16 +80,16 @@ The JSON must follow this shape exactly:
 
 function getQuizSystemInstruction(language: 'RU' | 'UZ'): string {
   const langName = language === 'RU' ? 'Russian' : 'Uzbek';
-  return `You are a Quiz Generator for an English learning app.
+  return `You are a Mathematics Quiz Generator for the MyMath app.
 GENERATE A JSON OBJECT for a Multiple Choice Quiz with exactly this structure:
 {
-  "topic": "quiz topic",
+  "topic": "math quiz topic",
   "questions": [
     {
-      "question": "The question in English or ${langName}",
+      "question": "The question in ${langName} (use LaTeX for formulas)",
       "options": ["A", "B", "C", "D"],
       "correctIndex": 0,
-      "explanation": "explanation of the correct answer in ${langName}"
+      "explanation": "explanation of the correct answer in ${langName} (with LaTeX)"
     }
   ]
 }
