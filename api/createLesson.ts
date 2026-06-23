@@ -88,7 +88,7 @@ The JSON must follow this shape exactly:
   const userPrompt = `Topic: "${topic}", Level: "${level}", Goal: "${goal}", Support Language: "${langName}"`;
 
   try {
-    const model = genAI.getGenerativeModel({ 
+    const model = genAI.getGenerativeModel({
       model: 'gemini-2.0-flash',
       generationConfig: { responseMimeType: 'application/json' }
     });
@@ -111,16 +111,16 @@ The JSON must follow this shape exactly:
       const text = await callPollinations(systemInstruction, userPrompt);
       const lesson = parseJsonLoose(text);
       if (lesson) return res.status(200).json({ lesson });
-      
+
       // Try Groq as second fallback
       const groqText = await callGroq(systemInstruction, userPrompt);
       const groqLesson = parseJsonLoose(groqText);
       if (groqLesson) return res.status(200).json({ lesson: groqLesson });
-      
+
       throw new Error('All JSON parsing failed');
     } catch (fallbackError: any) {
       console.error('All AI providers failed:', fallbackError);
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'AI xizmati vaqtincha mavjud emas.',
         debug: {
           mainError: error.message,
