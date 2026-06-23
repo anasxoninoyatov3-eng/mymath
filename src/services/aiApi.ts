@@ -1,7 +1,7 @@
 import { GeneratedLesson, GeneratedQuiz, LearningGoal } from '@/types';
 import { parseJsonLoose } from '@/utils/aiParser';
 
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || '';
+const GROQ_API_KEY = (import.meta as any).env.VITE_GROQ_API_KEY || '';
 
 async function callGroqDirect(
   systemInstruction: string,

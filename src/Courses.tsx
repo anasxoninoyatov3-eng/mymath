@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  BookOpen, Trophy, Star, ArrowRight, Zap, Shield, Crown,
+  BookOpen, Trophy, Star, ArrowRight, Zap, Shield,
   Clock, Target, Sparkles, ChevronRight, Play
 } from 'lucide-react';
 import { cn } from '@/utils';

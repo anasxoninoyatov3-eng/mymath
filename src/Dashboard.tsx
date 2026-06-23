@@ -25,7 +25,7 @@ export const DashboardPage = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={container}
       initial="hidden"
       animate="show"
@@ -41,25 +41,25 @@ export const DashboardPage = () => {
             {user?.xp && user.xp > 0 ? "Siz ajoyib natija ko'rsatyapsiz! Shunday davom eting." : "Birinchi matematika darsini boshlashga tayyormisiz?"}
           </p>
         </motion.div>
-        
+
         <motion.div variants={item} className="flex gap-4">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 py-3 rounded-xl flex items-center gap-4 shadow-sm">
-             <div className="h-10 w-10 rounded-lg bg-orange-50 flex items-center justify-center">
-                <Flame className="h-5 w-5 text-orange-500 fill-orange-500" />
-             </div>
-             <div>
-                <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.streak || 0}</div>
-                <div className="text-[11px] font-semibold text-slate-400 mt-1">Kunlik seriya</div>
-             </div>
+            <div className="h-10 w-10 rounded-lg bg-orange-50 flex items-center justify-center">
+              <Flame className="h-5 w-5 text-orange-500 fill-orange-500" />
+            </div>
+            <div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.streak || 0}</div>
+              <div className="text-[11px] font-semibold text-slate-400 mt-1">Kunlik seriya</div>
+            </div>
           </div>
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 py-3 rounded-xl flex items-center gap-4 shadow-sm">
-             <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center">
-                <Star className="h-5 w-5 text-indigo-600 fill-indigo-600" />
-             </div>
-             <div>
-                <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.xp?.toLocaleString() || 0}</div>
-                <div className="text-[11px] font-semibold text-slate-400 mt-1">Umumiy XP</div>
-             </div>
+            <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center">
+              <Star className="h-5 w-5 text-indigo-600 fill-indigo-600" />
+            </div>
+            <div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white leading-none">{user?.xp?.toLocaleString() || 0}</div>
+              <div className="text-[11px] font-semibold text-slate-400 mt-1">Umumiy XP</div>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -75,7 +75,7 @@ export const DashboardPage = () => {
             Joriy: {user?.currentLevel || 'Tanlanmagan'}
           </div>
         </div>
-        
+
         <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-11 gap-3">
           {['1-sinf', '2-sinf', '3-sinf', '4-sinf', '5-sinf', '6-sinf', '7-sinf', '8-sinf', '9-sinf', '10-sinf', '11-sinf'].map((lvl) => (
             <button
@@ -96,7 +96,7 @@ export const DashboardPage = () => {
 
       {/* Bento Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-8 auto-rows-[200px]">
-        
+
         {/* Featured Course Card */}
         <Card className="md:col-span-6 lg:col-span-8 row-span-2 relative overflow-hidden border-none shadow-2xl rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-700">
           <CardContent className="h-full p-10 flex flex-col justify-between text-white relative z-10">
@@ -107,7 +107,7 @@ export const DashboardPage = () => {
               <h2 className="text-4xl font-bold max-w-sm leading-tight">Geometriya va teorema</h2>
               <p className="text-white/80 font-medium max-w-xs text-base">Pifagor teoremasi va uning amaliy yechimlari bilan tanishing.</p>
             </div>
-            
+
             <div className="flex flex-col md:flex-row items-end justify-between gap-8 pt-8 border-t border-white/10">
               <div className="w-full md:max-w-xs space-y-2">
                 <div className="flex justify-between items-end">
@@ -115,7 +115,7 @@ export const DashboardPage = () => {
                   <span className="text-lg font-bold">{Math.floor(((user?.xp || 0) % 1000) / 10)}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-white dark:bg-slate-900/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white dark:bg-slate-900 transition-all duration-500" style={{ width: `${Math.floor(((user?.xp || 0) % 1000) / 10)}%` }} />
+                  <div className="h-full bg-white dark:bg-slate-900 transition-all duration-500" style={{ width: `${Math.floor(((user?.xp || 0) % 1000) / 10)}%` }} />
                 </div>
               </div>
               <Button asChild className="bg-white dark:bg-slate-900 text-indigo-600 hover:bg-white dark:bg-slate-900/90 h-12 px-8 rounded-lg text-base font-bold flex items-center gap-3">
@@ -129,55 +129,55 @@ export const DashboardPage = () => {
 
         {/* Activity Bento */}
         <Card className="md:col-span-3 lg:col-span-4 row-span-2 border-slate-200 dark:border-slate-800 shadow-sm p-8 flex flex-col justify-between rounded-2xl bg-white dark:bg-slate-900">
-           <CardHeader className="p-0">
-              <CardTitle className="text-xl font-bold flex items-center gap-3">
-                 <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center">
-                    <TrendingUp className="h-5 w-5 text-indigo-600" />
-                 </div>
-                 Faollik
-              </CardTitle>
-           </CardHeader>
-           
-           <div className="flex-1 flex items-end gap-3 h-32 pt-8">
-              {[40, 70, 45, 90, 65, 80, 50].map((h, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-3 group/bar">
-                  <motion.div 
-                    initial={{ height: 0 }}
-                    animate={{ height: `${h}%` }}
-                    className={cn(
-                      "w-3 rounded-full transition-all duration-500",
-                      i === 3 ? "bg-indigo-600" : "bg-slate-100 group-hover/bar:bg-slate-200"
-                    )} 
-                  />
-                  <span className="text-[8px] font-black text-slate-300 uppercase">{['d','s','ch','p','j','sh','y'][i]}</span>
-                </div>
-              ))}
-           </div>
+          <CardHeader className="p-0">
+            <CardTitle className="text-xl font-bold flex items-center gap-3">
+              <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center">
+                <TrendingUp className="h-5 w-5 text-indigo-600" />
+              </div>
+              Faollik
+            </CardTitle>
+          </CardHeader>
 
-           <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[11px] font-semibold text-slate-400">
-              <span>Haftalik o'rtacha</span>
-           </div>
+          <div className="flex-1 flex items-end gap-3 h-32 pt-8">
+            {[40, 70, 45, 90, 65, 80, 50].map((h, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-3 group/bar">
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: `${h}%` }}
+                  className={cn(
+                    "w-3 rounded-full transition-all duration-500",
+                    i === 3 ? "bg-indigo-600" : "bg-slate-100 group-hover/bar:bg-slate-200"
+                  )}
+                />
+                <span className="text-[8px] font-black text-slate-300 uppercase">{['d', 's', 'ch', 'p', 'j', 'sh', 'y'][i]}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[11px] font-semibold text-slate-400">
+            <span>Haftalik o'rtacha</span>
+          </div>
         </Card>
 
         {/* Quick Actions */}
         <Card className="md:col-span-3 lg:col-span-4 row-span-1 border-slate-200 dark:border-slate-800 shadow-sm p-6 flex items-center gap-5 group hover:bg-slate-50 dark:bg-slate-800 transition-all rounded-xl bg-white dark:bg-slate-900">
-           <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600 group-hover:scale-105 transition-transform">
-              <Zap className="h-6 w-6 fill-orange-600" />
-           </div>
-           <div>
-              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Bugungi mavzu</div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">Kvadrat tenglamalar</div>
-           </div>
+          <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600 group-hover:scale-105 transition-transform">
+            <Zap className="h-6 w-6 fill-orange-600" />
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Bugungi mavzu</div>
+            <div className="text-lg font-bold text-slate-900 dark:text-white">Kvadrat tenglamalar</div>
+          </div>
         </Card>
 
         <Card className="md:col-span-3 lg:col-span-4 row-span-1 border-slate-200 dark:border-slate-800 shadow-sm p-6 flex items-center gap-5 group hover:bg-slate-50 dark:bg-slate-800 transition-all rounded-xl bg-white dark:bg-slate-900">
-           <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:scale-105 transition-transform">
-              <Trophy className="h-6 w-6" />
-           </div>
-           <div>
-              <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Unvon</div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.currentLevel || 'Boshlang\'ich'}</div>
-           </div>
+          <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:scale-105 transition-transform">
+            <Trophy className="h-6 w-6" />
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold text-slate-400 leading-none mb-1.5">Unvon</div>
+            <div className="text-lg font-bold text-slate-900 dark:text-white">{user?.currentLevel || 'Boshlang\'ich'}</div>
+          </div>
         </Card>
 
         {/* Recommendations */}
@@ -185,7 +185,7 @@ export const DashboardPage = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Siz uchun tavsiyalar</h3>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { title: 'Algebra asosi', desc: 'Sonli ifodalar va o\'zgaruvchilar ustida amallar.', icon: Calculator, type: 'Algebra' },
