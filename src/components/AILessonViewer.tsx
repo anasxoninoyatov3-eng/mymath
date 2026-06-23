@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BookOpen,
@@ -266,7 +269,12 @@ export const AILessonViewer: React.FC<AILessonViewerProps> = ({
                 theme === 'modern' ? 'prose-slate' : theme === 'paper' ? 'prose-stone' : 'prose-invert prose-indigo',
                 "prose-p:text-lg prose-p:leading-relaxed prose-headings:font-black prose-strong:text-indigo-600 prose-blockquote:border-indigo-600 prose-blockquote:bg-indigo-50/10 prose-blockquote:py-1 prose-blockquote:rounded-r-lg"
               )}>
-                <ReactMarkdown>{lesson.sections[activeSection].content}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {lesson.sections[activeSection].content}
+                </ReactMarkdown>
               </div>
 
               {/* Action Buttons */}

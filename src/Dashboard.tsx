@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Card';
 import { Button } from '@/Button';
-import { Play, Star, Flame, Trophy, TrendingUp, Zap, Rocket, ChevronRight, Calculator, Binary, Scale, Pi } from 'lucide-react';
+import { Play, Star, Flame, Trophy, TrendingUp, Zap, ChevronRight, Calculator, Binary, Scale, Pi } from 'lucide-react';
 import { cn } from '@/utils';
 import { useUserStore } from '@/userStore';
 
@@ -63,6 +63,36 @@ export const DashboardPage = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Grade Selection (Sinf tanlash) */}
+      <motion.div variants={item} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-2xl shadow-sm space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Sinfni tanlang</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Siz uchun mos darslarni tayyorlashimiz uchun sinfingizni tanlang</p>
+          </div>
+          <div className="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-xs font-black tracking-wider uppercase">
+            Joriy: {user?.currentLevel || 'Tanlanmagan'}
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-11 gap-3">
+          {['1-sinf', '2-sinf', '3-sinf', '4-sinf', '5-sinf', '6-sinf', '7-sinf', '8-sinf', '9-sinf', '10-sinf', '11-sinf'].map((lvl) => (
+            <button
+              key={lvl}
+              onClick={() => useUserStore.getState().updateProfile({ currentLevel: lvl as any })}
+              className={cn(
+                "h-12 rounded-xl text-xs font-black transition-all border-2",
+                user?.currentLevel === lvl
+                  ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
+                  : "bg-slate-50 dark:bg-slate-800 border-transparent text-slate-500 hover:border-slate-200 dark:hover:border-slate-700"
+              )}
+            >
+              {lvl.split('-')[0]}
+            </button>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Bento Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-8 auto-rows-[200px]">

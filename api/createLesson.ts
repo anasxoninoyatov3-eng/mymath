@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { parseJsonLoose } from '../src/utils/aiParser';
+import { GeneratedLesson } from '../src/types';
 
 const GEMINI_KEY = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
 const GROQ_KEY = process.env.GROQ_API_KEY;
@@ -106,31 +107,36 @@ The JSON must follow this shape exactly:
     return res.status(200).json({ lesson });
   } catch (error: any) {
     console.warn('Gemini failed, trying fallbacks. Error:', error.message);
+    
+    // Try Pollinations
     try {
-      // For Vercel, let's prioritize Pollinations if keys might be missing
       const text = await callPollinations(systemInstruction, userPrompt);
-      const lesson = parseJsonLoose(text);
-      if (lesson) return res.status(200).json({ lesson });
-
-      // Try Groq as second fallback
-      const groqText = await callGroq(systemInstruction, userPrompt);
-      const groqLesson = parseJsonLoose(groqText);
-      if (groqLesson) return res.status(200).json({ lesson: groqLesson });
-
-      throw new Error('All JSON parsing failed');
-    } catch (fallbackError: any) {
-      console.error('All AI providers failed:', fallbackError);
-      res.status(500).json({
-        error: 'AI xizmati vaqtincha mavjud emas.',
-        debug: {
-          mainError: error.message,
-          fallbackError: fallbackError.message,
-          env: {
-            hasGemini: !!GEMINI_KEY,
-            hasGroq: !!GROQ_KEY
-          }
-        }
-      });
+      const lesson = parseJsonLoose<GeneratedLesson>(text);
+      if (lesson?.sections?.length) return res.status(200).json({ lesson });
+    } catch (err) {
+      console.warn('Pollinations fallback failed:', err);
     }
+
+    // Try Groq
+    try {
+      if (GROQ_KEY) {
+        const groqText = await callGroq(systemInstruction, userPrompt);
+        const groqLesson = parseJsonLoose<GeneratedLesson>(groqText);
+        if (groqLesson?.sections?.length) return res.status(200).json({ lesson: groqLesson });
+      }
+    } catch (err) {
+      console.warn('Groq fallback failed:', err);
+    }
+
+    res.status(500).json({
+      error: 'AI xizmati vaqtincha mavjud emas.',
+      debug: {
+        mainError: error.message,
+        env: {
+          hasGemini: !!GEMINI_KEY,
+          hasGroq: !!GROQ_KEY
+        }
+      }
+    });
   }
 }

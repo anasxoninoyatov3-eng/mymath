@@ -7,14 +7,14 @@ import { User, Mail, GraduationCap, Trophy, TrendingUp, Edit2, Save } from 'luci
 import { useUserStore } from '@/userStore';
 import { KnowledgeLevel } from '@/types';
 
-const LEVELS: KnowledgeLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const LEVELS: KnowledgeLevel[] = ['1-sinf', '2-sinf', '3-sinf', '4-sinf', '5-sinf', '6-sinf', '7-sinf', '8-sinf', '9-sinf', '10-sinf', '11-sinf'];
 
 export const ProfilePage = () => {
   const { user, updateProfile } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editFirstName, setEditFirstName] = useState(user?.firstName || '');
   const [editLastName, setEditLastName] = useState(user?.lastName || '');
-  const [editLevel, setEditLevel] = useState<KnowledgeLevel>(user?.currentLevel || 'A1');
+  const [editLevel, setEditLevel] = useState<KnowledgeLevel>(user?.currentLevel || '5-sinf');
 
   if (!user) {
     return (
@@ -133,7 +133,7 @@ export const ProfilePage = () => {
 
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
-                      Bilim darajasi
+                      Sinf
                     </label>
                     {isEditing ? (
                       <div className="relative">
@@ -150,12 +150,12 @@ export const ProfilePage = () => {
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                         <div className="h-8 w-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0">
-                            <GraduationCap className="h-4 w-4 text-emerald-500" />
-                         </div>
-                         <div className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm font-black tracking-wider">
-                            {user.currentLevel}
-                         </div>
+                        <div className="h-8 w-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0">
+                          <GraduationCap className="h-4 w-4 text-emerald-500" />
+                        </div>
+                        <div className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg text-sm font-black tracking-wider">
+                          {user.currentLevel}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -229,7 +229,7 @@ export const ProfilePage = () => {
                       {progress.topic}
                     </div>
                     <div className="text-xs text-slate-400 mt-1">
-                      Daraja {progress.level} • {progress.attempts} urinish
+                      {progress.level} • {progress.attempts} urinish
                     </div>
                   </div>
                   <div className="flex items-center gap-4 ml-4">
@@ -240,11 +240,10 @@ export const ProfilePage = () => {
                         </div>
                       </div>
                     )}
-                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      progress.mastered 
-                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' 
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${progress.mastered
+                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-100'
                         : 'bg-amber-50 text-amber-600 border border-amber-100'
-                    }`}>
+                      }`}>
                       {progress.mastered ? "O'zlashtirilgan" : "Jarayonda"}
                     </div>
                   </div>

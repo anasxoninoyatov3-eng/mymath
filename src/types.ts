@@ -1,5 +1,5 @@
 
-export type KnowledgeLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+export type KnowledgeLevel = '1-sinf' | '2-sinf' | '3-sinf' | '4-sinf' | '5-sinf' | '6-sinf' | '7-sinf' | '8-sinf' | '9-sinf' | '10-sinf' | '11-sinf';
 export type LearningGoal = 'theoretical' | 'practical' | 'professional';
 
 export interface VocabularyItem {

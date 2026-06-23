@@ -74,26 +74,43 @@ export default async function handler(req: any, res: any) {
     res.status(200).json(responseData);
   } catch (error: any) {
     console.warn('Gemini failed, trying fallbacks:', error.message);
-    try {
-      const text = await (Math.random() > 0.5 ? callGroq(systemInstruction, userPrompt) : callPollinations(systemInstruction, userPrompt));
-      // No need to parseJsonLoose here as we return the candidates structure with raw text
+    
+    let text = '';
+    
+    // Try Groq first as it's usually more reliable than Pollinations for complex prompts
+    if (GROQ_KEY) {
+      try {
+        text = await callGroq(systemInstruction, userPrompt);
+      } catch (err) {
+        console.warn('Groq fallback failed:', err);
+      }
+    }
+
+    // Try Pollinations if Groq failed or was skipped
+    if (!text) {
+      try {
+        text = await callPollinations(systemInstruction, userPrompt);
+      } catch (err) {
+        console.warn('Pollinations fallback failed:', err);
+      }
+    }
+
+    if (text) {
       const responseData = {
         candidates: [{ content: { parts: [{ text: text }] } }]
       };
-      res.status(200).json(responseData);
-    } catch (fallbackError: any) {
-      console.error('All AI providers failed:', fallbackError);
-      res.status(500).json({ 
-        error: fallbackError.message || 'Internal Server Error',
-        debug: {
-          mainError: error.message,
-          fallbackError: fallbackError.message,
-          env: {
-            hasGemini: !!GEMINI_KEY,
-            hasGroq: !!GROQ_KEY
-          }
-        }
-      });
+      return res.status(200).json(responseData);
     }
+
+    res.status(500).json({ 
+      error: 'AI xizmati vaqtincha mavjud emas.',
+      debug: {
+        mainError: error.message,
+        env: {
+          hasGemini: !!GEMINI_KEY,
+          hasGroq: !!GROQ_KEY
+        }
+      }
+    });
   }
 }

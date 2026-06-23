@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import { CheckCircle2, XCircle, ArrowRight, ArrowLeft, RefreshCw, Layers } from 'lucide-react';
 import { Button } from '@/Button';
 import { GeneratedQuiz } from '@/types';
@@ -57,7 +61,7 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
 
     return (
       <div className="h-screen overflow-y-auto bg-slate-50 dark:bg-slate-900 flex flex-col items-center py-12 px-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl max-w-2xl w-full border border-slate-100 dark:border-slate-700 font-sans"
@@ -65,19 +69,19 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
           <div className="text-center mb-10">
             <div className={cn(
               "h-24 w-24 rounded-full mx-auto flex items-center justify-center mb-6",
-              passed ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" 
-                     : "bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400"
+              passed ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400"
+                : "bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400"
             )}>
               {passed ? <CheckCircle2 className="h-12 w-12" /> : <XCircle className="h-12 w-12" />}
             </div>
-            
+
             <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-2">
               {t.results}
             </h2>
             <p className="text-xl font-medium text-slate-600 dark:text-slate-300">
               {t.score} <span className={cn("font-bold", passed ? "text-emerald-600" : "text-rose-600")}>{score} {t.of} {quiz.questions.length}</span>
             </p>
-            
+
             <p className="mt-4 text-slate-500 font-medium">
               {passed ? t.awesome : t.needsReview}
             </p>
@@ -88,7 +92,10 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
               const isCorrect = answers[i] === q.correctIndex;
               return (
                 <div key={i} className={cn("p-4 rounded-2xl border", isCorrect ? "bg-emerald-50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-800/30" : "bg-rose-50 border-rose-100 dark:bg-rose-900/10 dark:border-rose-800/30")}>
-                  <p className="font-bold text-slate-800 dark:text-slate-200 mb-2">{i + 1}. {q.question}</p>
+                  <div className="font-bold text-slate-800 dark:text-slate-200 mb-2 flex gap-2">
+                    <span>{i + 1}.</span>
+                    <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{q.question}</ReactMarkdown>
+                  </div>
                   <p className="text-sm font-medium mb-1">
                     <span className="text-slate-500">Sizning javobingiz: </span>
                     <span className={isCorrect ? "text-emerald-600" : "text-rose-600 line-through"}>{q.options[answers[i]]}</span>
@@ -98,9 +105,10 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
                       To'g'ri javob: {q.options[q.correctIndex]}
                     </p>
                   )}
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 p-3 bg-white/50 dark:bg-black/20 rounded-xl leading-relaxed">
-                    💡 {q.explanation}
-                  </p>
+                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-2 p-3 bg-white/50 dark:bg-black/20 rounded-xl leading-relaxed flex gap-2">
+                    <span className="shrink-0">💡</span>
+                    <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{q.explanation}</ReactMarkdown>
+                  </div>
                 </div>
               );
             })}
@@ -156,7 +164,7 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
               className="space-y-8"
             >
               <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight">
-                {currentQ.question}
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{currentQ.question}</ReactMarkdown>
               </h2>
 
               <div className="space-y-4">
@@ -168,8 +176,8 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
                       onClick={() => handleSelectOption(i)}
                       className={cn(
                         "w-full flex items-center gap-4 text-left p-4 rounded-xl border-2 transition-all font-medium text-base",
-                        isSelected 
-                          ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 shadow-sm" 
+                        isSelected
+                          ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 shadow-sm"
                           : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"
                       )}
                     >
@@ -179,7 +187,7 @@ export const AIPracticeQuiz: React.FC<AIPracticeQuizProps> = ({ quiz, language, 
                       )}>
                         {isSelected && <div className="h-2.5 w-2.5 rounded-full bg-indigo-600" />}
                       </div>
-                      <span>{opt}</span>
+                      <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{opt}</ReactMarkdown>
                     </button>
                   );
                 })}

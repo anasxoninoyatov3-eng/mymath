@@ -29,8 +29,8 @@ export const Sidebar = () => {
 
   const SidebarContent = (
     <div className="flex h-full flex-col">
-      <div className={cn("flex items-center mb-16 w-full", isSidebarCollapsed ? "justify-center px-0" : "justify-between px-2")}>
-        <div className="flex items-center gap-3 px-2">
+      <div className={cn("flex mb-16 w-full", isSidebarCollapsed ? "flex-col items-center justify-center gap-4 px-0" : "flex-row items-center justify-between px-2")}>
+        <div className={cn("flex items-center gap-3", isSidebarCollapsed ? "px-0" : "px-2")}>
           <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
             M
           </div>

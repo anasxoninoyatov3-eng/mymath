@@ -53,7 +53,7 @@ export const useUserStore = create<UserState>()(
               picture,
               xp: 0,
               streak: 0,
-              currentLevel: 'A1' as KnowledgeLevel,
+              currentLevel: '5-sinf' as KnowledgeLevel,
               topicProgress: [],
               joinDate: new Date().toISOString()
             };

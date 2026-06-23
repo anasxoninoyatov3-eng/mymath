@@ -48,7 +48,7 @@ export const Navbar = () => {
         <Link to="/profile" className="flex items-center space-x-2 md:space-x-4 group">
           <div className="flex flex-col items-end hidden sm:flex">
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">{displayName}</span>
-            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter">{user?.currentLevel || '7-sinf'}</span>
+            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter">{user?.currentLevel || '5-sinf'}</span>
           </div>
           <div className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm transition-all group-hover:ring-4 group-hover:ring-indigo-100 dark:group-hover:ring-indigo-900/40 overflow-hidden shadow-sm">
             {user?.picture ? (
