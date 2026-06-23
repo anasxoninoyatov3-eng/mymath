@@ -15,14 +15,14 @@ export const Navbar = () => {
       <div className="flex items-center gap-4">
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden h-10 w-10 flex items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 hover:bg-slate-100 transition-colors"
+          className="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 hover:bg-slate-100 transition-colors"
         >
           {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-        
+
         <div className="hidden max-w-xs md:flex-1 md:flex relative group">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300 dark:text-slate-500 group-focus-within:text-indigo-600 transition-colors" />
-          <input 
+          <input
             type="text"
             placeholder="Tezkor qidiruv..."
             className="h-10 w-full bg-slate-50 dark:bg-slate-800/50 border-none pl-10 pr-4 text-sm font-medium rounded-xl focus:ring-2 focus:ring-indigo-600/20 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
@@ -42,7 +42,7 @@ export const Navbar = () => {
           <Bell className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-indigo-600 border-2 border-white dark:border-slate-800" />
         </Button>
- 
+
         <div className="hidden h-6 w-px bg-slate-100 dark:bg-slate-800 mx-1 md:block" />
 
         <Link to="/profile" className="flex items-center space-x-2 md:space-x-4 group">

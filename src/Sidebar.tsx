@@ -42,7 +42,7 @@ export const Sidebar = () => {
         {!isMobileMenuOpen && (
           <button
             onClick={toggleSidebar}
-            className="hidden md:flex h-10 w-10 rounded-xl border border-slate-100 dark:border-slate-800 items-center justify-center text-slate-300 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+            className="hidden lg:flex h-10 w-10 rounded-xl border border-slate-100 dark:border-slate-800 items-center justify-center text-slate-300 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
           >
             {isSidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </button>
@@ -138,14 +138,14 @@ export const Sidebar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] md:hidden"
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] lg:hidden"
             />
             <motion.aside
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-slate-900 z-[70] p-6 md:hidden shadow-2xl border-r border-slate-200 dark:border-slate-800"
+              className="fixed left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-slate-900 z-[70] p-6 lg:hidden shadow-2xl border-r border-slate-200 dark:border-slate-800"
             >
               {SidebarContent}
             </motion.aside>
@@ -156,7 +156,7 @@ export const Sidebar = () => {
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 hidden h-screen flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 py-8 transition-all duration-300 md:flex z-50",
+          "fixed left-0 top-0 hidden h-screen flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 py-8 transition-all duration-300 lg:flex z-50",
           isSidebarCollapsed ? "w-20 items-center" : "w-64 px-4"
         )}
       >

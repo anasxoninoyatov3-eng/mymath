@@ -26,7 +26,7 @@ export const DashboardLayout = () => {
       <div className={cn(
         "flex flex-1 flex-col transition-all duration-700 ease-[0.16, 1, 0.3, 1]", 
         "w-full",
-        isSidebarCollapsed ? "md:pl-24" : "md:pl-64"
+        isSidebarCollapsed ? "lg:pl-24" : "lg:pl-64"
       )}>
         <Navbar />
         <main className="flex-1 p-4 md:p-8 animate-in fade-in duration-1000 overflow-x-hidden">
